@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.admin.dao.QnaDao">
+   <select id="getQnaList" parameterType="map" resultType="hashmap">
+   	SELECT 
+   		num,
+   		name,
+   		email,
+   		tel,
+   		qnalist,
+   		content,
+   		division,
+   		regDate,
+   		delyn,
+   		openyn
+   	FROM 
+   		qna  
+   	WHERE 
+   		delyn='y'
+   		<if test="fno !=null">
+   			and fno = #{fno}
+   		</if>
+   		<choose>   
+          <when test="qnalist == 'name'">
+              AND name LIKE CONCAT('%',#{search},'%')
+          </when>
+          <when test="qnalist == 'division'">
+              AND division LIKE CONCAT('%',#{search},'%')
+          </when>
+      </choose>
+   	ORDER BY num DESC
+   	LIMIT
+   		#{pageCount},#{countperPage}
+   </select>
+   
+   <select id="getQnaListTotal" parameterType="map" resultType="int">
+   	SELECT
+   		count(*)
+   	FROM
+   		qna
+   	WHERE 
+   		delyn='y'
+		<if test="fno !=null">
+   			and fno = #{fno}
+   		</if>
+   		<choose>   
+          <when test="qnalist == 'name'">
+              AND name LIKE CONCAT('%',#{search},'%')
+          </when>
+          <when test="qnalist == 'division'">
+              AND division LIKE CONCAT('%',#{search},'%')
+          </when>
+      </choose>
+   </select>
+   
+   <select id="qnaDetail" parameterType="string" resultType="map">
+   	SELECT 
+   		num,
+   		name,
+   		email,
+   		tel,
+   		qnalist,
+   		content,
+   		division,
+   		regDate
+   	FROM 
+   		qna  
+   	WHERE 
+   		num=#{no}
+   </select>
+   
+   <update id="qnaDelete" parameterType="string">
+   	update
+   		qna
+   	set
+   		delyn='n'
+   	where
+   		num=#{no}
+   </update>
+   
+   <update id="updateOpenYn" parameterType="string">
+   	update
+   		qna
+   	set
+   		openyn='y'
+   	where
+   		num=#{no}
+   </update>
+</mapper>

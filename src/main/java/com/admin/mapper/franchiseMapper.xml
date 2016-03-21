@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.admin.dao.FranchiseDao">
+    <select id="getLocationList" parameterType="map" resultType="hashMap">
+    	SELECT 
+    		f.fno,
+    		f.name,
+    		f.name_en,
+    		replace(f.address,substring(address,35),'..') address,
+    		f.area,
+    		f.opentime,
+    		f.closetime,
+    		f.holyday,
+    		f.capacity,
+    		f.parking,
+    		f.tel
+    	FROM 
+    		franchise f
+    	<if test="serviceNo != null">
+    	INNER JOIN (select serviceNo,storeNo from service where delyn = 'y' and serviceNo = #{serviceNo}) s ON f.fno = s.storeNo
+    	</if>
+    	WHERE f.delyn='y'
+    	<if test="qnalist == 'name'">
+    	AND name LIKE CONCAT('%',#{search},'%')
+    	</if>  	
+    	ORDER BY f.fno DESC 
+    	LIMIT
+    		#{pageCount},#{countperPage}
+    </select>
+    
+    <select id="getLocationListTotal" resultType="int">
+    	SELECT 
+    		count(f.fno)
+    	FROM 
+    		franchise f
+    	<if test="serviceNo != null">
+    	INNER JOIN service s on f.fno = s.storeNo
+    	</if>
+    	WHERE f.delyn='y'
+    	<if test="serviceNo != null">
+    	AND s.serviceNo = #{serviceNo}
+    	</if>
+    	<if test="qnalist == 'name'">
+    	AND f.name LIKE CONCAT('%',#{search},'%')
+    	</if>
+    </select>
+    
+    <insert id="regist" parameterType="com.admin.dto.FranchiseVo">
+    	INSERT INTO 
+    		franchise 
+    			(division,
+    			name,
+    			name_en,
+    			address,
+    			tel,
+    			opentime,
+    			closetime,
+    			holyday,
+    			capacity,
+    			parking,
+    			area,
+    			map,
+    			img1,
+    			img2,
+    			img3,
+    			img4,
+    			regDate) 
+    		VALUES
+    			(#{division},
+    			#{name},
+    			#{name_en},
+    			#{address},
+    			#{tel},
+    			#{opentime},
+    			#{closetime},
+    			#{holyday},
+    			#{capacity},
+    			#{parking},
+    			#{area},
+    			#{map},
+    			#{img1},
+    			#{img2},
+    			#{img3},
+    			#{img4},
+    			now()
+    		)
+    		<selectKey resultType="int" keyProperty="fno" order="AFTER">
+		        SELECT LAST_INSERT_ID() 
+		    </selectKey>   
+    </insert>
+    
+    <update id="delete" parameterType="string">
+    	update 
+    		franchise
+    	set
+    		delyn='n'
+    	where 
+    		fno = #{no}
+    </update>
+    
+    <select id="updateForm" parameterType="string" resultType="map">
+    	SELECT 
+    		fno,
+    		division,
+    		name,
+    		name_en,
+    		address,
+    		area,
+    		opentime,
+    		closetime,
+    		holyday,
+    		capacity,
+    		parking,
+    		map,
+    		tel,
+    		img1,
+    		img2,
+    		img3,
+    		img4
+    	FROM 
+    		franchise
+    	WHERE fno = #{fno}
+    </select>
+    
+    <update id="update" parameterType="map">
+    	update
+    		franchise
+    	set
+    		division=#{division},
+    		name=#{name},
+    		name_en=#{name_en},
+    		address=#{address},
+    		area=#{area},
+    		opentime=#{opentime},
+    		closetime=#{closetime},
+    		holyday=#{holyday},
+    		capacity=#{capacity},
+    		parking=#{parking},
+    		map=#{map},
+    		tel=#{tel},
+    		img1=#{img1},
+    		img2=#{img2},
+    		img3=#{img3},
+    		img4=#{img4},
+    		modDate=now()
+    	where
+    		fno=#{fno}
+    </update>
+    
+    <insert id="serviceRegist" parameterType="map" >
+    	INSERT INTO service 
+    			(serviceNo,
+    			storeNo,
+    			regDate) 
+    		VALUES
+    			(#{serviceNo},
+    			#{storeNo},
+    			now() )
+    </insert>
+    
+    <update id="setService" parameterType="map">
+    	update
+    		service
+    	set
+    		action=#{action}
+    	where
+    		serviceNo = #{serviceNo}
+    		AND
+    		storeNo = #{storeNo}
+    </update>
+    
+    <select id="getService" parameterType="string" resultType="string">
+    	SELECT
+    		serviceNo
+    	FROM
+    		service
+    	WHERE
+    		storeNo = #{no}
+    		AND
+    		action='y'
+    		AND
+    		delyn='y'
+    </select>
+    
+    <delete id="serviceDelete" parameterType="string">
+    	delete from service where storeNo=#{no}
+    </delete>
+</mapper>

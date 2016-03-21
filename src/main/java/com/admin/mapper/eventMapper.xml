@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.admin.dao.EventDao">
+   <select id="getEventList" parameterType="map" resultType="hashmap">
+    	SELECT 
+    		no,
+    		title,
+    		thumbnail,
+    		writer,
+    		startDate,
+    		endDate,
+    		regDate,
+    		hits 
+    	FROM 
+    		event
+    	WHERE delyn='y'
+    	<if test="username != null">
+    	AND username = #{username} 
+    	</if>
+    	<choose>   
+          <when test="qnalist == 'title'">
+              AND title LIKE CONCAT('%',#{search},'%')
+          </when>
+          <when test="qnalist == 'writer'">
+              AND writer LIKE CONCAT('%',#{search},'%')
+          </when>
+      </choose>
+    	ORDER BY no DESC 
+    	LIMIT 
+    		#{pageCount},#{countperPage}
+    </select>
+    
+    <select id="getEventListTotal" parameterType="map" resultType="int">
+    	SELECT 
+    		count(*)
+    	FROM 
+    		event
+    	WHERE delyn='y'
+    	<if test="username != null">
+    	AND username in ('admin', #{username} )
+    	</if>
+    	<choose>   
+          <when test="qnalist == 'title'">
+              AND title LIKE CONCAT('%',#{search},'%')
+          </when>
+          <when test="qnalist == 'writer'">
+              AND writer LIKE CONCAT('%',#{search},'%')
+          </when>
+      </choose>
+    </select>
+    
+    <insert id="eventWrite" parameterType="map">
+    	INSERT INTO event 
+    		(username,
+    		title,
+    		subtitle,
+    		content,
+    		thumbnail,
+    		startDate,
+    		endDate,
+    		writer,
+    		regDate) 
+    	VALUES 
+    		(#{username},
+    		#{title},
+    		#{subtitle},
+    		#{content},
+    		#{thumbnail},
+    		#{startDate},
+    		#{endDate},
+    		#{writer},
+    		now())
+    </insert>
+    
+    <select id="eventDetail" parameterType="string" resultType="map">
+    	SELECT
+    		no, 
+    		title,
+    		subtitle,
+    		content,
+    		startDate,
+    		endDate,
+    		thumbnail
+    	FROM 
+    		event 
+    	WHERE
+    		no = #{no}
+    </select>
+    
+    <update id="eventModifyAction" parameterType="map">
+    	update 
+    		event 
+    	set 
+    		title = #{title},
+    		subtitle = #{subtitle},
+    		content = #{content},
+    		thumbnail = #{thumbnail},
+    		startDate = #{startDate},
+    		endDate = #{endDate},
+    		modDate = now()
+    	where 
+    		no = #{no}
+    </update>
+    
+    <update id="eventDelete" parameterType="string">
+    	update event set delyn='n' where no=#{no}
+    </update>
+</mapper>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans 
+	xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/security
+        http://www.springframework.org/schema/security/spring-security.xsd">
+	
+	<http pattern="/resources/**" security="none"/>
+	
+	<http use-expressions="true">
+		<intercept-url pattern="/user/loginform" access="permitAll" />
+		<intercept-url pattern="/**" access="hasAnyRole('ROLE_ADMIN','ROLE_SSECARS','ROLE_SSECAR','ROLE_MOBIL')" />
+		<intercept-url pattern="/favicon.ico" access="permitAll" />
+
+		<form-login login-page="/user/loginform" username-parameter="userid" password-parameter="password" default-target-url="/" authentication-failure-url="/user/loginform?error=true"/> 
+		<logout logout-success-url="/user/loginform"/> 
+	</http>
+	
+	<beans:bean id="CustomUserDetailsService" class="com.admin.service.CustomUserDetailsService"/>
+	<authentication-manager>
+		<authentication-provider user-service-ref="CustomUserDetailsService"></authentication-provider>
+	</authentication-manager>
+</beans:beans>

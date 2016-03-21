@@ -1,0 +1,702 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.admin.dao.MasterDao">
+   <select id="getProductsList" parameterType="map" resultType="hashmap">
+    	SELECT 
+    		num,
+    		code,
+    		name,
+    		division,
+    		price,
+    		memo,
+    		regdate
+    	FROM 
+    		products
+    	WHERE delyn='y'
+    	<if test="division =='name'">
+    		and name like concat('%',#{search},'%')
+    	</if>
+    	ORDER BY num DESC
+    	LIMIT 
+    		#{pageCount},#{countperPage}
+    </select>
+    
+    <select id="getProductsListTotal" parameterType="map" resultType="int">
+    	SELECT 
+    		count(*)
+    	FROM 
+    		products
+    	WHERE delyn='y'
+    	<if test="division =='name'">
+    		and name like concat('%',#{search},'%')
+    	</if>
+    </select>
+    
+    <update id="productsDelete" parameterType="string">
+    	update
+    		products
+    	set
+    		delyn='n'
+    	where 
+    		num=#{no}
+    </update>
+    
+    <insert id="productswriteAction" parameterType="map">
+    	insert into products
+    		(code,
+    		name,
+    		division,
+    		color,
+    		price,
+    		memo,
+    		regdate
+    		)
+    	values
+    		(#{code},
+    		#{name},
+    		#{division},
+    		#{color},
+    		#{price},
+    		#{memo},
+    		now())
+    </insert>
+    
+    <select id="idDuplication" parameterType="string" resultType="int">
+    	SELECT 
+    		count(*)
+    	FROM 
+    		users
+    	WHERE username = #{id}
+    </select>
+    
+    <insert id="accountWriteAction" parameterType="map">
+    	insert into users
+    		(username,
+    		password,
+    		name,
+    		fno,
+    		tel,
+    		memo,
+    		regdate
+    		)
+    	values
+    		(#{username},
+    		#{password},
+    		#{name},
+    		#{fno},
+    		#{tel},
+    		#{memo},
+    		now())
+    </insert>
+    
+    <insert id="roleWriteAction" parameterType="map">
+    	insert into user_roles
+    		(username,
+    		role)
+    	values
+    		(#{username},
+    		#{role})
+    </insert>
+    
+    <select id="getAccountsList" parameterType="map" resultType="hashmap">
+		select
+			u.num,
+    		u.username,
+    		ifnull(f.name,'-') account,
+    		CASE r.role
+			 	WHEN 'ROLE_SSECARS' THEN '쌔카에스가맹'
+				WHEN 'ROLE_SSECAR' THEN '쌔카직영'
+				WHEN 'ROLE_ADMIN' THEN '관리자'
+				WHEN 'ROLE_MOBIL' THEN 'M8 제휴'
+			END role,
+    		u.name,
+    		u.tel,
+    		u.memo
+    	from 
+    		users u
+    	left outer join franchise f on u.fno = f.fno
+    	inner join user_roles r on u.username = r.username
+    	where u.delyn='y'
+    	<if test="division =='id'">
+    		and u.username like concat('%',#{search},'%')
+    	</if>
+    	<if test="division =='account'">
+    		and f.name like concat('%',#{search},'%')
+    	</if>
+    	order by u.num desc
+    	limit 
+    		#{pageCount},#{countperPage}
+    </select>
+    
+    <select id="getAccountListTotal" parameterType="map" resultType="int">
+    	select
+    		count(*)
+    	from 
+    		users u
+    	left outer join franchise f on u.fno = f.fno
+    	where u.delyn='y'
+    	<if test="division =='id'">
+    		and u.username like concat('%',#{search},'%')
+    	</if>
+    	<if test="division =='account'">
+    		and f.name like concat('%',#{search},'%')
+    	</if>
+    </select>
+    
+    <delete id="accountDelete" parameterType="string">
+    	delete 
+    		from users 
+    	where 
+    		username = #{username}
+    </delete>
+    
+    <delete id="roleDelete" parameterType="string">
+    	delete 
+    		from user_roles
+    	where 
+    		username = #{username}
+    </delete>
+    
+    <select id="accountUpdate" parameterType="string" resultType="map">
+    	select
+			u.num,
+    		u.username,
+    		u.password,
+    		ifnull(f.name,'-') account,
+    		u.fno,
+    		case r.role
+			 	when 'ROLE_ADMIN' then '관리자'
+			 	when 'ROLE_SSECARS' then '쌔카S' 
+			 	when 'ROLE_SSECAR' then '쌔카직영점' 
+			 	when 'ROLE_MOBIL' then 'M8 제휴' 
+			end role,
+    		u.name,
+    		u.tel,
+    		u.memo
+    	from 
+    		users u
+    	left outer join franchise f on u.fno = f.fno
+    	inner join user_roles r on u.username = r.username
+    	where u.num = #{no}
+    </select>
+    
+    <update id="accountUpdateAction" parameterType="map">
+    	update
+    		users
+    	set
+    		password = #{password},
+    		name=#{name},
+    		tel=#{tel},
+    		memo=#{memo}
+    	where
+    		num=#{num}
+    </update>
+    
+    <select id="getManufacturerList" parameterType="map" resultType="hashmap">
+    	select 
+			num,
+			brand 
+		from 
+			manufacturer
+    </select>
+    
+    <select id="getautomobile" parameterType="string" resultType="hashmap">
+    	select 
+    		num,
+    		name 
+    	from 
+    		automobile 
+    	where 
+    		manufacturer = #{num}
+    </select>
+    
+    <delete id="manuDelete" parameterType="string">
+    	delete 
+    		from 
+    	manufacturer 
+    	where 
+    		num = #{no}
+    </delete>
+    
+    <delete id="autoDelete" parameterType="string">
+    	delete
+    		from
+    	automobile
+    	where 
+    		num = #{no}
+    </delete>
+    
+    <insert id="vehicleManuWriteAction" parameterType="string">
+    	insert into manufacturer
+    		(brand,regdate)
+    	values
+    		(#{manufacturer},now())
+    </insert>
+    
+    <insert id="vehicleAutoWriteAction" parameterType="map">
+    	insert into automobile
+    		(manufacturer,name,regdate)
+    	values
+    		(#{manufacturer},#{name},now())
+    </insert>
+    
+    <select id="manuDuplication" parameterType="string" resultType="int">
+    	select
+    		count(*)
+    	from
+    		manufacturer
+    	where
+    		brand = #{manufacturer}
+    </select>
+    
+    <select id="autoDuplication" parameterType="string" resultType="int">
+    	select
+    		count(*)
+    	from
+    		automobile
+    	where
+    		name = #{name}
+    </select>
+    
+    <select id="getFranchiseList" parameterType="map" resultType="hashmap">
+    	select
+    		fno,
+			name,
+			address
+    	from
+    		franchise
+		where
+			delyn='y'
+			<if test="name != null">
+				and name like concat('%',#{name},'%')
+			</if>
+    </select>
+    
+    
+    <!-- 2016-01-11 reservationDeatail를 Calendar를 사용함으로써 추가 -->
+    <select id="getCalendarList" parameterType="map" resultType="hashmap">
+ 		<!-- SELECT 
+			r.num id,
+			r.name,
+			r.tel,
+			r.memo,
+			p.color backgroundColor,
+			p.color borderColor,
+			a.name title,
+			concat(r.date,'T',left(start,5)) start,
+			concat(r.date,'T',right(start,5)) end
+		FROM 
+			reservation r
+			Inner join manufacturer m on r.manufacturer = m.num
+			Inner join automobile a on r.vehicle = a.num
+			Inner join products p on r.service = p.num
+		WHERE r.delyn='y'
+		AND r.store = #{store} -->
+		SELECT 
+			r.num id,
+			r.name,
+			r.tel,
+			r.memo,
+			r.color borderColor,
+			r.color backgroundColor,
+			a.name title,
+			concat(r.date,'T',left(start,5)) start,
+			concat(r.date,'T',right(start,5)) end,
+			p.name service
+		FROM 
+			reservation r
+			Inner join automobile a on r.vehicle = a.num
+			Inner join products p on r.service = p.num
+		WHERE r.delyn='y'
+		AND r.store =#{fno}
+		and r.date between FROM_UNIXTIME(#{start},'%Y-%m-%d') and FROM_UNIXTIME(#{end},'%Y-%m-%d')
+    </select>
+    
+     <!-- 2016-01-11 reservationDeatail 백업 -->
+    <select id="reservationDetail2" parameterType="map" resultType="hashmap">
+    	select
+			r.num,
+    		r.date,
+    		r.start,
+    		r.name,
+    		r.tel,
+    		a.name vehicle,
+    		p.name service,
+    		r.memo
+	    from
+	    	reservation r
+	    inner join automobile a on r.vehicle = a.num
+	    inner join products p on r.service = p.num
+	    where
+			r.delyn='y'
+			and r.store = #{fno}
+			<if test="qnalist =='name'">
+				and r.name like concat('%',#{search},'%')
+			</if>
+		order by r.num desc
+    	limit
+    		#{pageCount},#{countperPage}
+    </select>
+    
+    <select id="reservationDetailTotal" parameterType="map" resultType="int">
+    	select
+    		count(*)
+    	from
+    	reservation
+		where
+			delyn='y'
+			and store = #{fno}
+			<if test="qnalist =='name'">
+				and name like concat('%',#{search},'%')
+			</if>
+    </select>
+    
+    <select id="salesDetail" parameterType="map" resultType="hashmap">
+    	select
+			s.num,
+			s.customernum,
+			s.name,
+			s.date,
+			s.division,
+			p.name service,
+			if(s.card!='',s.card,'0') card,
+			if(s.cash!='',s.cash,'0') cash,
+			s.social,
+			s.coupon,
+			s.memo,
+			count(*) re
+		from
+			sales s
+		inner join products p on s.service = p.num
+		where
+			s.delyn='y'
+			and fno = #{fno}
+			<if test="qnalist =='name'">
+				and s.name like concat('%',#{search},'%')
+			</if>
+			<if test="qnalist =='customernum'">
+				and s.customernum like concat('%',#{search},'%')
+			</if>
+			<if test="division !=null and division !=''">
+				and s.division = #{division}
+			</if>
+		GROUP BY s.customernum
+    	ORDER BY num DESC
+    	LIMIT 
+    		#{pageCount},#{countperPage}
+    </select>
+    
+    <select id="salesDetailTotal" parameterType="map" resultType="int">
+    	select
+    		count(*)
+    	from(
+		 	select
+	    		count(*)
+	    	from
+	    		sales s
+	    	where
+	    		delyn='y'
+	    		and fno = #{fno}
+	    		<if test="qnalist =='name'">
+					and s.name like concat('%',#{search},'%')
+				</if>
+				<if test="qnalist =='customernum'">
+					and s.customernum like concat('%',#{search},'%')
+				</if>
+				<if test="division !=null and division !=''">
+					and s.division = #{division}
+				</if>
+				GROUP BY s.customernum) tb
+    </select>
+    
+    <select id="customerDetail" parameterType="map" resultType="hashmap">
+    	select
+			c.num,
+			c.name,
+			c.birthday,
+			f.name store,
+			c.tel,
+			a.name vehicle,
+			c.carnumber
+		from 
+			customer c
+		inner join franchise f on c.fno = f.fno
+		inner join automobile a on c.automobile = a.num
+		where 
+			c.delyn='y'
+			<if test="fno !=null and fno !=''">
+				and c.fno = #{fno}
+			</if>
+			<if test="qnalist =='name'">
+				and c.name like concat('%',#{search},'%')
+			</if>
+			<if test="qnalist =='num'">
+				and c.num like concat('%',#{search},'%')
+			</if>
+			<if test="qnalist =='carnumber'">
+				and c.carnumber like concat('%',#{search},'%')
+			</if>
+			<if test="qnalist =='tel'">
+				and c.tel like concat('%',#{search},'%')
+			</if>
+		order by c.num DESC
+    	limit 
+    		#{pageCount},#{countperPage}
+    </select>
+    
+    <select id="customerDetailTotal" parameterType="map" resultType="int">
+    	select
+			count(*)
+		from 
+			customer c
+		where 
+			c.delyn='y'
+			<if test="fno !=null and fno !=''">
+				and c.fno = #{fno}
+			</if>
+			<if test="qnalist =='name'">
+				and c.name like concat('%',#{search},'%')
+			</if>
+			<if test="qnalist =='num'">
+				and c.num like concat('%',#{search},'%')
+			</if>
+			<if test="qnalist =='carnumber'">
+				and c.carnumber like concat('%',#{search},'%')
+			</if>
+			<if test="qnalist =='tel'">
+				and c.tel like concat('%',#{search},'%')
+			</if>
+    </select>
+    
+    <select id="dayDetail" parameterType="map" resultType="hashmap">
+    	select 
+			s.date,
+			count(s.date) cnt,
+			FORMAT(sum(s.card),0) card,
+			FORMAT(sum(s.cash),0) cash,
+			FORMAT(sum(s.online),0) online,
+			FORMAT(sum(s.social),0) social,
+			FORMAT(sum(s.etc),0) etc,
+			FORMAT( ( sum(s.card)+sum(s.cash)+sum(s.online) ),0) total
+		from 
+			sales s
+		where
+			s.fno = #{fno}
+			and year(s.date) = #{year}
+			and month(s.date) = #{month}
+			<if test="division !=null">
+			and s.division = #{division}
+			</if>
+		group by s.date 
+		order by s.date desc
+    </select>
+
+	<select id="monthDetail" parameterType="map" resultType="hashmap">
+		select 
+			date_format(date,'%Y년 %m월') year,
+			count(s.date) cnt,
+			FORMAT(sum(s.card),0) card,
+			FORMAT(sum(s.cash),0) cash,
+			FORMAT(sum(s.online),0) online,
+			FORMAT(sum(s.social),0) social,
+			FORMAT(sum(s.etc),0) etc,
+			FORMAT( ( sum(s.card)+sum(s.cash)+sum(s.online) ),0) total
+		from 
+			sales s
+	where
+			fno = #{fno}
+			and year(date) = #{year}
+			<if test="division !=null">
+			and division = #{division}
+			</if>
+		group by date_format(date,'%Y년 %m월')
+		order by date_format(date,'%Y년 %m월') asc
+	</select>
+	
+	<select id="statisticsDetail" parameterType="map" resultType="hashmap">
+		select
+			motivation,
+			count(motivation) cnt 
+		from 
+			reservation 
+		where
+			1=1
+			<if test="fno !=null">
+				and store = #{fno}
+			</if> 
+			and delyn='y'
+			and regdate between '${startDate}' and '${endDate} 24:00' 
+			group by motivation with ROLLUP
+	</select>
+	
+	<select id="statisticsCustomerDetail" parameterType="map" resultType="hashmap">
+		select
+			ifnull(motivation,'합계') motivation,
+			count(motivation) cnt
+		
+		from 
+			customer 
+		where
+			1=1
+			<if test="fno != null">
+				and fno = #{fno}
+			</if>
+			and delyn='y'
+			and regdate between '${startDate}' and '${endDate} 24:00' 
+			group by motivation WITH ROLLUP
+	</select>
+	
+	<select id="getAreaList" parameterType="map" resultType="hashmap">
+		select 
+			area 
+		from 
+			franchise 
+		group by area
+	</select>
+	
+	<select id="getfranchise" parameterType="string" resultType="hashmap">
+		select 
+			fno,
+			name 
+		from 
+			franchise 
+		where
+			delyn = 'y' 
+			and area = #{area}
+	</select>
+	
+	<select id="dayTotal" parameterType="map" resultType="hashmap">
+		select FORMAT(sum(card),0) card, FORMAT(sum(cash),0) cash, FORMAT(sum(online),0) online, FORMAT(sum(social),0) social, FORMAT(sum(etc),0) etc, FORMAT(sum(total),0) total from
+ 		(select 
+			sum(s.card) card,
+			sum(s.cash) cash,
+			sum(s.online) online,
+			sum(s.social) social,
+			sum(s.etc) etc,
+			sum(s.card)+sum(s.cash)+sum(s.online) total
+		from 
+			sales s
+		where
+			s.fno = #{fno}
+			and year(s.date) = #{year}
+			and month(s.date) = #{month}
+			<if test="division !=null">
+			and s.division = #{division}
+			</if>	 
+		group by s.date 
+		order by s.date desc) tb
+	</select>
+	
+	<select id="monthTotal" parameterType="map" resultType="hashmap">
+		select FORMAT(sum(card),0) card, FORMAT(sum(cash),0) cash, FORMAT(sum(online),0) online, FORMAT(sum(social),0) social, FORMAT(sum(etc),0) etc, FORMAT(sum(total),0) total from
+ 		(select 
+			sum(s.card) card,
+			sum(s.cash) cash,
+			sum(s.online) online,
+			sum(s.social) social,
+			sum(s.etc) etc,
+			sum(s.card)+sum(s.cash)+sum(s.online) total
+		from 
+			sales s
+		where
+			fno = #{fno}
+			and year(date) = #{year}
+			<if test="division !=null">
+			and division = #{division}
+			</if>
+		group by date_format(date,'%Y년 %m월')
+		order by date_format(date,'%Y년 %m월') asc) tb
+	</select>
+	
+	<select id="getReserveInfobynum" parameterType="map" resultType="hashmap">
+		SELECT 
+			r.num,
+			r.name,
+			r.tel,
+			r.memo,
+			r.color borderColor,
+			r.color backgroundColor,
+			a.name title,
+			r.date,
+			r.start,
+			r.vehicle,
+			r.manufacturer,
+			r.service,
+			r.motivation
+		FROM 
+			reservation r
+			Inner join automobile a on r.vehicle = a.num
+			Inner join products p on r.service = p.num
+		WHERE r.delyn='y'
+		AND r.num = #{id}
+	</select>
+	
+	<update id="reserveUpdate">
+		update 
+    		reservation 
+    	set
+    		name=#{name},
+    		service=#{service},
+    		tel=#{tel},
+    		date=#{date},
+    		start=#{start},
+    		manufacturer=#{manufacturer},
+    		vehicle=#{vehicle},
+    		motivation = #{motivation},
+    		memo=#{memo}
+    	where num = #{num}
+	</update>
+	<select id="down" parameterType="map" resultType="hashmap">
+		select
+			s.num,
+			s.customernum,
+			s.name,
+			s.date,
+			s.division,
+			p.name service,
+			if(s.card!='',s.card,'0') card,
+			if(s.cash!='',s.cash,'0') cash,
+			s.social,
+			s.coupon,
+			s.memo,
+			count(*) re
+		from
+			sales s
+		inner join products p on s.service = p.num
+		where
+			s.delyn='y'
+			and s.fno = #{fno}
+			<if test="qnalist =='name'">
+				and s.name like concat('%',#{search},'%')
+			</if>
+			<if test="qnalist =='customernum'">
+				and s.customernum like concat('%',#{search},'%')
+			</if>
+			<if test="division !=null and division !=''">
+				and s.division = #{division}
+			</if>
+			and s.regdate between '${start} 00:00' and '${end} 24:00'
+		GROUP BY s.customernum
+    	ORDER BY s.num DESC
+	</select>
+	
+	<update id="clientUpdateAction" parameterType="map">
+    	update
+    		customer
+    	set
+    		fno=#{fno},
+    		name=#{name},
+    		sex=#{sex},
+    		carnumber=#{carnumber},
+    		tel=#{tel},
+    		birthday=#{birthday},
+    		manufacturer=#{manufacturer},
+    		automobile=#{automobile},
+    		motivation=#{motivation},
+    		color=#{color},
+    		memo=#{memo},
+    		moddate=now()
+    	where
+    		num = #{num}
+    </update>
+</mapper>

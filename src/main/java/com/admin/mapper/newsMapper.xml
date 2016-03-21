@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.admin.dao.NewsDao">
+    <select id="getNewsList" parameterType="map" resultType="hashmap">
+    	SELECT
+    		num,
+    		title,
+    		thumbnail,
+    		regDate
+    	FROM 
+    		news 
+    	WHERE 
+    		delyn='y'
+    	<if test="qnalist == 'title'">
+    		and title like concat('%',#{search},'%')
+    	</if>
+    	ORDER BY num DESC 
+    	LIMIT 
+    		#{pageCount},#{countperPage}
+    </select>
+    
+    <select id="getNewsListTotal" parameterType="map" resultType="int">
+    	SELECT 
+    		count(num)
+    	FROM
+    		news 
+    	WHERE 
+    		delyn='y'
+    	<if test="qnalist == 'title'">
+    		and title like concat('%',#{search},'%')
+    	</if>
+    </select>
+    
+    <insert id="newsWrite" parameterType="map">
+    	insert into
+    		news
+    		(title,
+    		subtitle,
+    		content,
+    		thumbnail,
+    		regDate)
+    	values
+    		(#{title},
+    		#{subtitle},
+    		#{content},
+    		#{thumbnail},
+    		now())
+    </insert>
+    
+    <update id="newsDelete" parameterType="string">
+    	update
+    		news
+    	set
+    		delyn='n'
+    	where
+    		num=#{no}
+    </update>
+    
+    <select id="newsDetail" parameterType="string" resultType="hashmap">
+    	SELECT
+    		num,
+    		title,
+    		subtitle,
+    		content,
+    		thumbnail,
+    		hits,
+    		regDate
+    	FROM
+    		news
+    	WHERE 
+    		delyn='y'
+    		and num = #{no}
+    </select>
+    
+    <update id="updateAction" parameterType="map">
+    	update
+    		news
+    	set
+    		title=#{title},
+    		subtitle=#{subtitle},
+    		content=#{content},
+    		thumbnail=#{thumbnail},
+    		modDate=now()
+    	where
+    		num=#{num}
+    </update>
+</mapper>

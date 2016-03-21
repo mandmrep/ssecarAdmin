@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.admin.dao.UserDao">
+   <select id="findUserInfo" parameterType="string" resultType="com.admin.dto.UserVo">
+    	SELECT 
+    		u.username,
+    		u.password,
+    		u.name,
+    		u.enabled,
+    		u.fno,
+    		u.regDate,
+    		f.name fname
+    	FROM 
+    		users u
+    	LEFT OUTER JOIN franchise f ON u.fno = f.fno
+    	WHERE u.username=#{username}
+    </select>
+    
+    <select id="loadPermission" parameterType="string" resultType="hashmap">
+    	SELECT 
+    		user_role_id,
+    		username,
+    		role
+    	FROM 
+    		user_roles
+    	WHERE username=#{username}
+    </select>
+</mapper>
