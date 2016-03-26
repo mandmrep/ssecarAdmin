@@ -76,9 +76,24 @@
 											<div class="col-lg-2">
 												<input type="text" class="form-control" id="card" name="card" value="${sales.card}" pattern='^[0-9]*$' maxlength="20">
 											</div>
-											<label class="control-label col-lg-2">기타</label>
+											<%-- <label class="control-label col-lg-2">기타</label>
 											<div class="col-lg-2">
 												<input type="text" class="form-control" id="etc" name="etc" value="${sales.etc}" pattern='^[0-9]*$' maxlength="20">
+											</div> --%>
+										</div>
+										
+										<div class="form-group">
+											<label class="control-label col-lg-2">온라인</label>
+											<div class="col-lg-2">
+												<input type="text" class="form-control" id="online" name="online" value="${sales.online}" pattern='^[0-9]*$' maxlength="20">
+											</div>
+											<label class="control-label col-lg-2">소셜</label>
+											<div class="col-lg-2">
+												<input type="text" class="form-control" id="social" name="social" value="${sales.social}" pattern='^[0-9]*$' maxlength="20">
+											</div>
+											<label class="control-label col-lg-2">쿠폰</label>
+											<div class="col-lg-2">
+												<input type="text" class="form-control" id="coupon" name="coupon" value="${sales.coupon}" pattern='^[0-9]*$' maxlength="20">
 											</div>
 										</div>
 

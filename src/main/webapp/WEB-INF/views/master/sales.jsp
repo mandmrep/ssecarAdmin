@@ -59,7 +59,7 @@
 								
 								<c:forEach var="franchise" items="${franchiseList}">
 									<tr onclick="detail('${franchise.fno}','${franchise.name}')" style="cursor:pointer;">
-										<td>${franchise.name}</td>
+										<td><a>${franchise.name}</a></td>
 										<td>${franchise.address}</td>
 									</tr>
 								</c:forEach>

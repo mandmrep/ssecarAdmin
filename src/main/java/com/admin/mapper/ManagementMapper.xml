@@ -281,7 +281,9 @@
     		service,
     		card,
     		cash,
-    		etc,
+    		online,
+    		social,
+    		coupon,
     		memo,
     		regdate
     		) 
@@ -294,7 +296,9 @@
     		#{service},
     		#{card},
     		#{cash},
-    		#{etc},
+    		#{online},
+    		#{social},
+    		#{coupon},
     		#{memo},
     		now()
     		)
@@ -317,8 +321,11 @@
 			p.name service,
 			FORMAT(s.card,0) card,
 			FORMAT(s.cash,0) cash,
+			FORMAT(s.online,0) online,
+			FORMAT(s.social,0) social,
+			FORMAT(s.coupon,0) coupon,
 			FORMAT(s.etc,0) etc,
-			FORMAT((s.card+s.etc+s.cash),0) total,
+			FORMAT((s.card+s.online+s.cash),0) total,
 			s.memo 
 		from
 			sales s
@@ -342,6 +349,7 @@
     		sales
     	where
     		delyn='y'
+    		and fno = #{fno}
     		and division='서비스'
     		<if test="qnalist =='name'">
 			and name like concat('%',#{search},'%')
@@ -356,8 +364,11 @@
 			p.name service,
 			FORMAT(s.card,0) card,
 			FORMAT(s.cash,0) cash,
+			FORMAT(s.online,0) online,
+			FORMAT(s.social,0) social,
+			FORMAT(s.coupon,0) coupon,
 			FORMAT(s.etc,0) etc,
-			FORMAT((s.card+s.etc+s.cash),0) total,
+			FORMAT((s.card+s.online+s.cash),0) total,
 			s.memo 
 		from
 			sales s
@@ -407,7 +418,9 @@
 			s.service,
 			s.card,
 			s.cash,
-			s.etc,
+			s.online,
+			s.social,
+			s.coupon,
 			s.memo
 		from 
 			sales s
@@ -426,7 +439,9 @@
     		service=#{service},
     		card=#{card},
     		cash=#{cash},
-    		etc=#{etc},
+    		online=#{online},
+    		social=#{social},
+    		coupon=#{coupon},
     		memo=#{memo},
     		moddate=now()
     	where 

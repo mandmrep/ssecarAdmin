@@ -39,7 +39,9 @@
 									<th><i class="icon_calendar"></i> 서비스명</th>
 									<th><i class="icon_mail_alt"></i> 카드</th>
 									<th><i class="icon_mail_alt"></i> 현금</th>
-									<th><i class="icon_mail_alt"></i> 기타(소셜/쿠폰)</th>
+									<th><i class="icon_mail_alt"></i>온라인</th>
+									<th><i class="icon_mail_alt"></i>소셜</th>
+									<th><i class="icon_mail_alt"></i>쿠폰</th>
 									<th><i class="icon_mail_alt"></i>합계</th>
 									<th><i class="icon_mail_alt"></i> 비고</th>
 									<th><i class="icon_cogs"></i> 수정/삭제</th>
@@ -53,7 +55,9 @@
 										<td>${sale.service}</td>
 										<td>${sale.card}</td>
 										<td>${sale.cash}</td>
-										<td>${sale.etc}</td>
+										<td>${sale.online}</td>
+										<td>${sale.social}</td>
+										<td>${sale.coupon}</td>
 										<td>${sale.total}</td>
 										<td><a href="#" data-toggle="tooltip" title="${sale.memo}">비고</a></td>
 										<td>
