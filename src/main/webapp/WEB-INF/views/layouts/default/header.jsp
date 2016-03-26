@@ -63,8 +63,7 @@
 					<li><a class="" href="/nano/main">나노쿼츠 관리</a></li>
 				</ul>
 			</li>
-			
-			
+
 			<sec:authorize access="hasAuthority('ROLE_ADMIN')">
 			<li class="sub-menu">
 				<a href="javascript:;"> <i class="icon_desktop"></i> <span>마스터 메뉴</span> <span class="menu-arrow arrow_carrot-right"></span></a>
@@ -75,8 +74,8 @@
 					<li><a href="/master/reservation">예약관리</a></li>
 					<li><a href="/master/sales">매출관리</a></li>
 					<li><a href="/master/customerDetail">고객관리</a></li>
-					<li><a href="/master/day">월매출관리</a></li>
-					<li><a href="/master/month">연매출조회</a></li>
+					<!-- <li><a href="/master/day">월매출관리</a></li>
+					<li><a href="/master/month">연매출조회</a></li> -->
 					<li><a href="/master/statistics">통계조회</a></li>
 				</ul>
 			</li>

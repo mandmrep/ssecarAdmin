@@ -361,10 +361,11 @@
 			p.name service,
 			if(s.card!='',s.card,'0') card,
 			if(s.cash!='',s.cash,'0') cash,
+			s.online,
 			s.social,
 			s.coupon,
-			s.memo,
-			count(*) re
+			s.memo
+			<!-- count(*) re -->
 		from
 			sales s
 		inner join products p on s.service = p.num
@@ -380,16 +381,13 @@
 			<if test="division !=null and division !=''">
 				and s.division = #{division}
 			</if>
-		GROUP BY s.customernum
+		<!-- GROUP BY s.customernum -->
     	ORDER BY num DESC
     	LIMIT 
     		#{pageCount},#{countperPage}
     </select>
     
     <select id="salesDetailTotal" parameterType="map" resultType="int">
-    	select
-    		count(*)
-    	from(
 		 	select
 	    		count(*)
 	    	from
@@ -406,7 +404,7 @@
 				<if test="division !=null and division !=''">
 					and s.division = #{division}
 				</if>
-				GROUP BY s.customernum) tb
+				<!-- GROUP BY s.customernum -->
     </select>
     
     <select id="customerDetail" parameterType="map" resultType="hashmap">
@@ -476,6 +474,7 @@
 			FORMAT(sum(s.cash),0) cash,
 			FORMAT(sum(s.online),0) online,
 			FORMAT(sum(s.social),0) social,
+			FORMAT(sum(s.coupon),0) coupon,
 			FORMAT(sum(s.etc),0) etc,
 			FORMAT( ( sum(s.card)+sum(s.cash)+sum(s.online) ),0) total
 		from 
@@ -499,6 +498,7 @@
 			FORMAT(sum(s.cash),0) cash,
 			FORMAT(sum(s.online),0) online,
 			FORMAT(sum(s.social),0) social,
+			FORMAT(sum(s.coupon),0) coupon,
 			FORMAT(sum(s.etc),0) etc,
 			FORMAT( ( sum(s.card)+sum(s.cash)+sum(s.online) ),0) total
 		from 
@@ -566,14 +566,25 @@
 	</select>
 	
 	<select id="dayTotal" parameterType="map" resultType="hashmap">
-		select FORMAT(sum(card),0) card, FORMAT(sum(cash),0) cash, FORMAT(sum(online),0) online, FORMAT(sum(social),0) social, FORMAT(sum(etc),0) etc, FORMAT(sum(total),0) total from
+		select 
+			FORMAT(sum(card),0) card, 
+			FORMAT(sum(cash),0) cash, 
+			FORMAT(sum(online),0) online, 
+			FORMAT(sum(social),0) social, 
+			FORMAT(sum(coupon),0) coupon,
+			FORMAT(sum(etc),0) etc, 
+			FORMAT(sum(total),0) total,
+			FORMAT(sum(alltotal),0) alltotal  
+		from
  		(select 
 			sum(s.card) card,
 			sum(s.cash) cash,
 			sum(s.online) online,
 			sum(s.social) social,
+			sum(s.coupon) coupon,
 			sum(s.etc) etc,
-			sum(s.card)+sum(s.cash)+sum(s.online) total
+			sum(s.card)+sum(s.cash)+sum(s.online) total,
+			sum(s.card)+sum(s.cash)+sum(s.online)+sum(s.social)+sum(s.coupon) alltotal
 		from 
 			sales s
 		where
@@ -588,14 +599,25 @@
 	</select>
 	
 	<select id="monthTotal" parameterType="map" resultType="hashmap">
-		select FORMAT(sum(card),0) card, FORMAT(sum(cash),0) cash, FORMAT(sum(online),0) online, FORMAT(sum(social),0) social, FORMAT(sum(etc),0) etc, FORMAT(sum(total),0) total from
+		select 
+			FORMAT(sum(card),0) card, 
+			FORMAT(sum(cash),0) cash, 
+			FORMAT(sum(online),0) online, 
+			FORMAT(sum(social),0) social,
+			FORMAT(sum(coupon),0) coupon, 
+			FORMAT(sum(etc),0) etc, 
+			FORMAT(sum(total),0) total,
+			FORMAT(sum(alltotal),0) alltotal
+		from
  		(select 
 			sum(s.card) card,
 			sum(s.cash) cash,
 			sum(s.online) online,
 			sum(s.social) social,
+			sum(s.coupon) coupon,
 			sum(s.etc) etc,
-			sum(s.card)+sum(s.cash)+sum(s.online) total
+			sum(s.card)+sum(s.cash)+sum(s.online) total,
+			sum(s.card)+sum(s.cash)+sum(s.online)+sum(s.social)+sum(s.coupon) alltotal
 		from 
 			sales s
 		where

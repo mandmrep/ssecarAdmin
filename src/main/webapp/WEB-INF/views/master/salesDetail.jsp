@@ -26,19 +26,26 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<section class="panel">
-					<form action="/master/salesDetail" method="post">
+					<form id="sForm" action="/master/salesDetail" method="post">
 						<input type="hidden" name="fno" value="${ paramInfo.fno }">
+						<input type="hidden" name="fname" value="${ paramInfo.fname }">
+						<input type="hidden" id="division" name="division" value="${ paramInfo.division }">
 						<div class="btn-group" role="group" aria-label="..." style="margin: 10px 10px 10px; ">
 							  <button type="button" class="btn btn-default active">일매출</button>
-							  <button type="button" class="btn btn-default" onclick="location.href='/master/day';">월매출</button>
-							  <button type="button" class="btn btn-default" onclick="location.href='/master/month';">연매출</button>
+							  <button type="button" class="btn btn-default" onclick="detail('${paramInfo.fno}','${paramInfo.fname}','dayDetail')">월매출</button>
+							  <button type="button" class="btn btn-default" onclick="detail('${paramInfo.fno}','${paramInfo.fname}','monthDetail')">연매출</button>
+						</div>
+						<div class="btn-group" role="group" aria-label="..." style="margin: 10px 10px 10px; ">
+							  <button type="button" class="btn btn-default<c:if test='${empty paramInfo.division}'> active</c:if>" onclick="div('')">전 체</button>
+							  <button type="button" class="btn btn-default <c:if test='${paramInfo.division eq "서비스"}'> active</c:if>" onclick="div('서비스')">서비스</button>
+							  <button type="button" class="btn btn-default <c:if test='${paramInfo.division eq "제품"}'> active</c:if>" onclick="div('제품')">제품</button>
 						</div>
 						<div id="search_div">
-							<select name="division" class="search_qna" style="width: 100px;">
+							<%-- <select name="division" class="search_qna" style="width: 100px;">
 								<option value="">선택하세요</option>
 								<option value="서비스" <c:if test='${paramInfo.division eq "서비스"}'> selected="selected"</c:if>>서비스</option>
 								<option value="제품"   <c:if test='${paramInfo.division eq "제품"}'> selected="selected"</c:if>>제품</option>
-							</select>
+							</select> --%>
 							<select name="qnalist" class="search_qna" style="width: 100px;">
 								<option value="">선택하세요</option>
 								<option value="name" <c:if test='${paramInfo.qnalist eq "name"}'> selected="selected"</c:if>>고객명</option>
@@ -64,6 +71,7 @@
 								<th><i class="icon_calendar"></i> 제품명</th>
 								<th><i class="icon_mail_alt"></i> 카드</th>
 								<th><i class="icon_mail_alt"></i> 현금</th>
+								<th><i class="icon_mail_alt"></i> 온라인</th>
 								<th><i class="icon_mail_alt"></i> 소셜</th>
 								<th><i class="icon_mail_alt"></i> 쿠폰</th>
 								<th><i class="icon_mail_alt"></i> 합계</th>
@@ -80,9 +88,10 @@
 									<td>${sale.service}</td>
 									<td>${sale.card}</td>
 									<td>${sale.cash}</td>
+									<td>${sale.online}</td>
 									<td>${sale.social}</td>
 									<td>${sale.coupon}</td>
-									<td>${sale.card+sale.cash+sale.coupon}</td>
+									<td>${sale.card+sale.cash+sale.online}</td>
 									<td><a data-toggle="tooltip" title="${sale.memo}">비고</a></td>
 								</tr>
 							</c:forEach>
@@ -154,5 +163,22 @@ function pagination(idx) {
 
 function down(){
 	location.href="/master/down?start="+$('#start').val()+"&end="+$('#end').val()+"&fno=${paramInfo.fno}";
+}
+
+function detail(idx,nm,url){
+	var $form = $('<form></form>');
+	$form.attr('action', '/master/'+url);
+    $form.attr('method', 'post');
+    $form.appendTo('body');
+    
+    var idx = $('<input type="hidden" name="fno" value="'+idx+'">');
+    var name = $('<input type="hidden" name="fname" value="'+nm+'">');
+    $form.append(idx).append(name);
+    $form.submit();
+}
+
+function div(val){
+	$('#division').val(val);
+	$('#sForm').submit();
 }
 </script>

@@ -39,10 +39,8 @@
 									<td>${notice.hits}</td>
 								</tr>
 							</c:forEach>
-
 						</tbody>
 					</table>
-
 				</section>
 
 				<div>
@@ -85,19 +83,17 @@
 <!--main content end-->
 <script>
 	function noticeWrite() {
-		window.location = '/notice/writeForm';
+		window.location = '/admin/writeForm';
 	}
 
 	function pagination(idx) {
 		var $form = $('<form></form>');
-		$form.attr('action', '/notice/main');
+		$form.attr('action', '/');
 	    $form.attr('method', 'post');
 	    $form.appendTo('body');
 	    
-	    var qnalist = $('<input type="hidden" name="qnalist" value="${paramInfo.qnalist}">');
-	    var search = $('<input type="hidden" name="search" value="${paramInfo.search}">');
 	    var PaginationNum = $('<input type="hidden" name="PaginationNum" value="'+idx+'">');
-	    $form.append(PaginationNum).append(qnalist).append(search);
+	    $form.append(PaginationNum);
 	    $form.submit();
 	}
 </script>

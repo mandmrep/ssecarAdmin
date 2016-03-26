@@ -11,6 +11,7 @@
     	FROM 
     		notice
     	WHERE delyn='y'
+    	and writer!='admin'
     	<if test="qnalist =='title'">
     	and title like concat('%',#{search},'%')
     	</if>
@@ -25,6 +26,7 @@
     	FROM 
     		notice
     	WHERE delyn='y'
+    	and writer!='admin'
     	<if test="qnalist =='title'">
     	and title like concat('%',#{search},'%')
     	</if>
@@ -73,4 +75,79 @@
     	where 
     		no = #{no}
     </update>
+    
+    <select id="getNoticeList2" parameterType="map" resultType="hashmap">
+    	SELECT 
+    		no,
+    		title,
+    		writer,
+    		regDate,
+    		hits 
+    	FROM 
+    		noticeadmin
+    	WHERE delyn='y'
+    	and writer='admin'
+    	<if test="qnalist =='title'">
+    	and title like concat('%',#{search},'%')
+    	</if>
+    	ORDER BY no DESC 
+    	LIMIT 
+    		#{pageCount},#{countperPage}
+    </select>
+    
+    <select id="getNoticeListTotal2" resultType="int">
+    	SELECT 
+    		count(*)
+    	FROM 
+    		noticeadmin
+    	WHERE delyn='y'
+    	and writer='admin'
+    	<if test="qnalist =='title'">
+    	and title like concat('%',#{search},'%')
+    	</if>
+    </select>
+    
+    <insert id="noticeWrite2" parameterType="map">
+    	INSERT INTO 
+    		noticeadmin 
+    			(title,
+    			content,
+    			writer,
+    			regDate) 
+    		VALUES 
+    			(#{title},
+    			#{content},
+    			'admin',
+    			now())
+    </insert>
+    
+    <update id="noticeDelete2" parameterType="string">
+    	update 
+    		noticeadmin 
+    	set 
+    		delyn='n' 
+    	where 
+    		no=#{no}
+    </update>
+    
+    <update id="noticeModify2" parameterType="map">
+    	update 
+    		noticeadmin 
+    	set 
+    		title = #{title},
+    		content = #{content},
+    		modDate = now()
+    	where 
+    		no = #{no}
+    </update>
+    
+    <select id="noticeDetail2" parameterType="string" resultType="map">
+    	SELECT 
+    		no,
+    		title,
+    		CONVERT(content USING utf8) content 
+    	FROM 
+    		noticeadmin 
+    	WHERE no = #{no}
+    </select>
 </mapper>

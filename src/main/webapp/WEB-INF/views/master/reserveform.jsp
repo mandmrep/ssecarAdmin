@@ -57,6 +57,14 @@
 										</div>
 
 										<div class="form-group">
+											<label class="control-label col-lg-2">고객No</label>
+											<div class="col-lg-10">
+												<input type="text" class="form-control" id=customernum name="customernum" readonly="readonly">
+												고객명을 입력하면 자동으로 입력됩니다.
+											</div>
+										</div>
+										
+										<div class="form-group">
 											<label class="control-label col-lg-2">고객명</label>
 											<div class="col-lg-10">
 												<input type="text" class="form-control" id="name" name="name" required="required" data-toggle="modal" data-target="#customerModal">
@@ -65,14 +73,14 @@
 
 
 										<div class="form-group">
-											<label class="control-label col-lg-2" for="tags">전화번호</label>
+											<label class="control-label col-lg-2" for="tel">전화번호</label>
 											<div class="col-lg-10">
 												<input type="text" class="form-control" id="tel" name="tel" pattern='[0-9]{9,11}' required="required">
 											</div>
 										</div>
 
 										<div class="form-group">
-											<label class="control-label col-lg-2" for="tags">차종</label>
+											<label class="control-label col-lg-2" for="temp">차종</label>
 											<div class="col-lg-10">
 												<input type="hidden" id="manufacturer" name="manufacturer">
 												<input type="hidden" id="vehicle" name="vehicle" required="required" readonly="readonly" >
@@ -81,7 +89,7 @@
 										</div>
 
 										<div class="form-group">
-											<label class="control-label col-lg-2" for="tags">서비스명</label>
+											<label class="control-label col-lg-2" for="service">서비스명</label>
 											<div class="col-lg-10">
 												<select class="form-control" id="service" name="service" required="required">
 													<option value="">선택하세요</option>
@@ -93,7 +101,7 @@
 										</div>
 										
 										<div class="form-group">
-											<label class="control-label col-lg-2" for="tags">예약구분</label>
+											<label class="control-label col-lg-2" for="color">예약구분</label>
 											<div class="col-lg-10">
 												<select class="form-control" id="color" name="color" required="required">
 													<option value="purple">스팀</option>
@@ -106,7 +114,7 @@
 										</div>
 
 										<div class="form-group">
-											<label class="control-label col-lg-2" for="tags">방문동기</label>
+											<label class="control-label col-lg-2" for="motivation">예약경로</label>
 											<div class="col-lg-10">
 												<select class="form-control" id="motivation" name="motivation" required="required">
 													<option value="">선택하세요</option>

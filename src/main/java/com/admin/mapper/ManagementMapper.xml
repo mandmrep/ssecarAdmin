@@ -662,12 +662,15 @@
 			FORMAT(s.cash,0) cash,
 			FORMAT(s.social,0) social,
 			FORMAT(s.online,0) online,
+			FORMAT(s.coupon,0) coupon,
 			FORMAT(s.etc,0) etc,
 			FORMAT(s.card+s.online+s.cash,0) total,
-			s.memo
+			s.memo,
+			f.name fname
 		from 
 			sales s
-		inner join products p on s.service = p.num 
+		inner join products p on s.service = p.num
+		inner join franchise f on s.fno = f.fno 
 		where 
 			s.customernum = #{num}
 		order by s.date desc

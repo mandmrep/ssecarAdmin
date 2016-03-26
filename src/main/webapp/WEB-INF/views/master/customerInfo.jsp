@@ -57,7 +57,7 @@ strong{
 						
 						<div class="row">
 							<div class="col-lg-12">
-								<p><strong>지점</strong><br>${clientDetail.store}</p>
+								<p><strong>등록지점</strong><br>${clientDetail.store}</p>
 							</div>
 						</div>
 						
@@ -85,13 +85,15 @@ strong{
 						<table id="clientTable" class="table table-striped table-advance table-hover">
 							<tbody>
 								<tr>
-									<th>방문No</th>
+									<th>예약No</th>
 									<th><i class="icon_calendar"></i> 방문일자</th>
 									<th><i class="icon_calendar"></i> 서비스/제품명</th>
+									<th><i class="icon_calendar"></i> 방문지점</th>
 									<th><i class="icon_profile"></i> 카드</th>
 									<th><i class="icon_mobile"></i> 현금</th>
 									<th><i class="icon_mobile"></i>온라인</th>
 									<th><i class="icon_mobile"></i>소셜</th>
+									<th><i class="icon_mobile"></i>쿠폰</th>
 									<th><i class="icon_pin_alt"></i>합계</th>
 									<th><i class="icon_pin_alt"></i>비고</th>
 								</tr>
@@ -101,10 +103,12 @@ strong{
 										<td>${clientSale.num}</td>
 										<td>${clientSale.date}</td>
 										<td>${clientSale.name}</td>
+										<td>${clientSale.fname}</td>
 										<td>${clientSale.card}</td>
 										<td>${clientSale.cash}</td>
 										<td>${clientSale.online}</td>
 										<td>${clientSale.social}</td>
+										<td>${clientSale.coupon}</td>
 										<td>${clientSale.total}</td>
 										<td><a href="#" data-toggle="tooltip" title="${clientSale.memo}">비고</a></td>
 									</tr>
@@ -147,7 +151,7 @@ strong{
 	</section>
 </section>
 <script>
-$("#clientTable > tr > td:eq(7)").tooltip();
+$("#clientTable > tr > td:eq(8)").tooltip();
 
 function pagination(idx) {
 	var $form = $('<form></form>');

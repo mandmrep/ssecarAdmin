@@ -51,7 +51,7 @@
 					<table class="table table-striped table-advance table-hover">
 						<tbody>
 							<tr>
-								<th>방문No</th>
+								<th>고객No</th>
 								<th><i class="icon_calendar"></i>고객명</th>
 								<th><i class="icon_calendar"></i>생일</th>
 								<th><i class="icon_profile"></i>지점명</th>

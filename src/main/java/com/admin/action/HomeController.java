@@ -1,5 +1,6 @@
 package com.admin.action;
 
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -43,13 +44,13 @@ public class HomeController {
 		Map<String,Object> map = new HashMap<String,Object>();
 		
 		//총 리스트 수 구하기
-		int NoticeListTotal = noticeService.getNoticeListTotal(map);
+		int NoticeListTotal2 = noticeService.getNoticeListTotal2(map);
 		
 		Utilities util = new Utilities();
-		Map<String,Object> param = util.pagination(10,NoticeListTotal,PaginationNum);
+		Map<String,Object> param = util.pagination(10,NoticeListTotal2,PaginationNum);
 		
 		//list가져오기
-		List<Map<String,Object>> list = noticeService.getNoticeList(param);
+		List<Map<String,Object>> list = noticeService.getNoticeList2(param);
 		model.addAttribute("NoticeList", list);
 		model.addAttribute("paramInfo", param);
 		
@@ -60,10 +61,10 @@ public class HomeController {
 	public String detail(Locale locale, Model model,@PathVariable String no) {
 		logger.info("detail");
 		
-		Map<String,Object> map = noticeService.noticeDetail(no);
+		Map<String,Object> map = noticeService.noticeDetail2(no);
 		model.addAttribute("notice", map);
 		
-		return "noticeDetail";
+		return "admin/noticeDetail";
 	}
 	@RequestMapping(value = "/favicon.ico", method = RequestMethod.GET)
 	public String favicon() {
@@ -71,4 +72,63 @@ public class HomeController {
 		return "redirect:/";
 	}
 	
+	@RequestMapping(value = "/admin/writeForm", method = RequestMethod.GET)
+	public String writeForm(Locale locale, Model model) {
+		logger.info("writeForm");
+		
+		return "admin/writeForm";
+	}
+	
+	@RequestMapping(value = "/admin/write", method = RequestMethod.POST)
+	public String write(Locale locale, Model model,HttpServletRequest request) {
+		logger.info("write");
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		Enumeration<String> em =  request.getParameterNames();
+		
+		while(em.hasMoreElements()){
+			String name=em.nextElement();
+			map.put(name, request.getParameter(name));
+		}
+		
+		noticeService.noticeWrite2(map);
+		
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value = "/admin/modify", method = RequestMethod.POST)
+	public String modify(Locale locale, Model model,HttpServletRequest request) {
+		logger.info("modify");
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		Enumeration<String> em =  request.getParameterNames();
+		
+		while(em.hasMoreElements()){
+			String name=em.nextElement();
+			map.put(name, request.getParameter(name));
+		}
+		
+		noticeService.noticeModify2(map);
+		
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value = "/admin/modifyForm/{no}", method = RequestMethod.GET)
+	public String modifyForm(Locale locale, Model model,@PathVariable String no) {
+		logger.info("detail");
+		
+		Map<String,Object> map = noticeService.noticeDetail2(no);
+		model.addAttribute("notice", map);
+		
+		return "admin/modify";
+	}
+	
+	@RequestMapping(value = "/admin/delete/{no}", method = RequestMethod.GET)
+	public String delete(Locale locale, Model model,@PathVariable String no) {
+		logger.info("delete");
+		
+		noticeService.noticeDelete2(no);
+		
+		return "redirect:/";
+	}
 }

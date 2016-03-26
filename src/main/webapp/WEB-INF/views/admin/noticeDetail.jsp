@@ -44,12 +44,12 @@
 
 <script>
 	function noticeDelete(no) {
-		window.location = '/notice/delete/' + no;
+		window.location = '/admin/delete/' + no;
 	}
 	function noticeModify(no) {
-		window.location = '/notice/modifyForm/' + no;
+		window.location = '/admin/modifyForm/' + no;
 	}
 	function pagination(idx) {
-		window.location = '/notice/main?PaginationNum=' + idx; //GET방식 한글 파라미터 넘기기 인코딩
+		window.location = '/notice/main?PaginationNum=' + idx; 
 	}
 </script>

@@ -1,5 +1,6 @@
 package com.admin.action;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Enumeration;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -466,7 +467,7 @@ public class MasterController {
 		return "master/sales";
 	}
 	
-	@RequestMapping(value="/salesDetail",method=RequestMethod.POST)
+	@RequestMapping(value="/salesDetail",method={RequestMethod.GET,RequestMethod.POST})
 	public String salesDetail(Model model,HttpServletRequest request){
 		logger.info("salesDetail");
 		
@@ -566,33 +567,35 @@ public class MasterController {
 		return "master/day";
 	}
 	
-	@RequestMapping(value="/dayDetail",method=RequestMethod.POST)
-	public String dayDetail(Model model,HttpServletRequest request){
+	@RequestMapping(value="/dayDetail",method={RequestMethod.GET, RequestMethod.POST})
+	public String dayDetail(Model model,HttpServletRequest request) throws UnsupportedEncodingException{
 		logger.info("dayDetail");
 		
 		String fno = request.getParameter("fno");
+		String fname = request.getParameter("fname");
 		String year = request.getParameter("year");
 		String month = request.getParameter("month");
 		String division = request.getParameter("division");
-		
+		System.out.println(fname);
 		//현재 년월 구하기
 		GregorianCalendar today = new GregorianCalendar ();
 
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("fno", fno);
-		map.put("year", year);
+		map.put("fname", fname);
 		
-		if(year != null){
-			map.put("year", year);
-		}else{
+		if(year == null || year.equals("") ){
 			int year_gre = today.get ( today.YEAR );
 			map.put("year", year_gre);
-		}
-		if(month != null){
-			map.put("month", month);
 		}else{
+			map.put("year", year);
+		}
+		
+		if(month == null || month.equals("")){
 			int month_gre = today.get ( today.MONTH ) + 1;
 			map.put("month", month_gre);
+		}else{
+			map.put("month", month);
 		}
 		if(division !=null && !division.equals("")){
 			map.put("division", division);
@@ -621,11 +624,12 @@ public class MasterController {
 		return "master/month";
 	}
 	
-	@RequestMapping(value="/monthDetail",method=RequestMethod.POST)
+	@RequestMapping(value="/monthDetail",method={RequestMethod.GET, RequestMethod.POST})
 	public String monthDetail(Model model,HttpServletRequest request){
 		logger.info("monthDetail");
 		
 		String fno = request.getParameter("fno");
+		String fname = request.getParameter("fname");
 		String year = request.getParameter("year");
 		String division = request.getParameter("division");
 		
@@ -635,12 +639,14 @@ public class MasterController {
 
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("fno", fno);
+		map.put("fname", fname);
 		map.put("year", year);
-		if(year != null){
-			map.put("year", year);
-		}else{
+		if(year == null || year.equals("") ){
 			map.put("year", year_gre);
+		}else{
+			map.put("year", year);
 		}
+		
 		if(division !=null && !division.equals("")){
 			map.put("division", division);
 		}

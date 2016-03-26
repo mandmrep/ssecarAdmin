@@ -17,7 +17,7 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="panel">
-					<form id="noticeform" method="post" action="/notice/write">
+					<form id="noticeform" method="post" action="/admin/write">
 						<label for="title">Á¦¸ñ</label><br> <input id="title"
 							name="title"
 							style="border: 1px solid; height: 30px; margin-bottom: 10px; width: 1200px;"
