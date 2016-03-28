@@ -71,6 +71,7 @@ strong{
 
 					</div>
 					<div class="panel-footer" style="text-align: right;">
+						<a class="btn btn-lg btn-danger" href="">예약</a>
 						<a class="btn btn-lg btn-primary" href="javascript:history.back();">목록</a>
 					</div>
 				</section>
