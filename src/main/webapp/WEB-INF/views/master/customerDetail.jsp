@@ -52,6 +52,7 @@
 						<tbody>
 							<tr>
 								<th>고객No</th>
+								<th>방문횟수</th>
 								<th><i class="icon_calendar"></i>고객명</th>
 								<th><i class="icon_calendar"></i>생일</th>
 								<th><i class="icon_profile"></i>지점명</th>
@@ -64,6 +65,7 @@
 							<c:forEach var="client" items="${clientDetail}">
 								<tr onclick="location.href='/master/customerInfo/${client.num}';" style="cursor:pointer;">
 									<td>${client.num}</td>
+									<td>${client.cnt}</td>
 									<td>${client.name}</td>
 									<td>${client.birthday}</td>
 									<td>${client.store}</td>

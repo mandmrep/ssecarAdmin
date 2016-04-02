@@ -405,6 +405,7 @@
 					and s.division = #{division}
 				</if>
 				<!-- GROUP BY s.customernum -->
+				
     </select>
     
     <select id="customerDetail" parameterType="map" resultType="hashmap">
@@ -415,7 +416,8 @@
 			f.name store,
 			c.tel,
 			a.name vehicle,
-			c.carnumber
+			c.carnumber,
+			count(c.num) cnt
 		from 
 			customer c
 		inner join franchise f on c.fno = f.fno
@@ -437,12 +439,14 @@
 			<if test="qnalist =='tel'">
 				and c.tel like concat('%',#{search},'%')
 			</if>
+		group by c.num	
 		order by c.num DESC
     	limit 
     		#{pageCount},#{countperPage}
     </select>
     
     <select id="customerDetailTotal" parameterType="map" resultType="int">
+    select count(*) from (
     	select
 			count(*)
 		from 
@@ -464,6 +468,8 @@
 			<if test="qnalist =='tel'">
 				and c.tel like concat('%',#{search},'%')
 			</if>
+			group by c.num
+			) tb
     </select>
     
     <select id="dayDetail" parameterType="map" resultType="hashmap">
