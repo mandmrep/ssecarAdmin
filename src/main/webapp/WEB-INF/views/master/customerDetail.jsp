@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <style>
 .search_qna{
 	height: 30px; 
@@ -32,8 +34,8 @@
 							<select name="fno" class="search_qna" style="width: 300px;">
 								<option value="">선택하세요.</option>
 								<c:forEach var="f" items="${franchiseList}">
-									<c:if test="${param.fno eq f.fno}"><option value="${f.fno}" selected="selected">${f.name}</option></c:if>
-									<c:if test="${param.fno ne f.fno}"><option value="${f.fno}">${f.name}</option></c:if>
+									<c:if test="${param.fno eq f.fno}"><option value="${f.fno}" selected="selected">${f.name}(${f.cnt})</option></c:if>
+									<c:if test="${param.fno ne f.fno}"><option value="${f.fno}">${f.name}(${f.cnt})</option></c:if>
 								</c:forEach>
 							</select>
 							<select name="qnalist" class="search_qna" style="width: 100px;">
@@ -64,7 +66,7 @@
 
 							<c:forEach var="client" items="${clientDetail}">
 								<tr onclick="location.href='/master/customerInfo/${client.num}';" style="cursor:pointer;">
-									<td>${client.num}</td>
+									<td><fmt:parseNumber value="${client.ROWNUM}" integerOnly="true"/></td>
 									<td>${client.cnt}</td>
 									<td>${client.name}</td>
 									<td>${client.birthday}</td>

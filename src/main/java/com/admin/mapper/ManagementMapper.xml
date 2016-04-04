@@ -576,6 +576,7 @@
 			c.motivation,
 			c.memo,
 			c.regdate,
+			f.fno,
 			f.name store
 		from 
 			customer c

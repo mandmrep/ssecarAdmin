@@ -59,7 +59,7 @@
 										<div class="form-group">
 											<label class="control-label col-lg-2">고객No</label>
 											<div class="col-lg-10">
-												<input type="text" class="form-control" id=customernum name="customernum" readonly="readonly">
+												<input type="text" class="form-control" id=customernum name="customernum" value="${num}" readonly="readonly">
 												고객명을 입력하면 자동으로 입력됩니다.
 											</div>
 										</div>
@@ -67,7 +67,7 @@
 										<div class="form-group">
 											<label class="control-label col-lg-2">고객명</label>
 											<div class="col-lg-10">
-												<input type="text" class="form-control" id="name" name="name" required="required" data-toggle="modal" data-target="#customerModal">
+												<input type="text" class="form-control" id="name" name="name" value="${name}" required="required" data-toggle="modal" data-target="#customerModal">
 											</div>
 										</div>
 

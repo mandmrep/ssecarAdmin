@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style>
 .search_qna{
 	height: 30px; 
@@ -80,9 +81,9 @@
 	
 							<c:forEach var="sale" items="${salesList}">
 								<tr style="cursor:pointer;">
-									<td>${sale.num}</td>
+									<td><fmt:parseNumber value="${sale.ROWNUM}" integerOnly="true"/></td>
 									<td>${sale.customernum}</td>
-									<td>${sale.name}</td>
+									<td><a href="/master/customerInfo/${sale.customernum}">${sale.name}</a></td>
 									<td>${sale.date}</td>
 									<td>${sale.division}</td>
 									<td>${sale.service}</td>

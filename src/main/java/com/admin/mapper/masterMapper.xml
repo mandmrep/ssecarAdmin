@@ -260,13 +260,14 @@
     
     <select id="getFranchiseList" parameterType="map" resultType="hashmap">
     	select
-    		fno,
-			name,
-			address
+    		f.fno,
+			f.name,
+			f.address,
+			ifnull((select count(*) from customer c where c.delyn='y' and f.fno = c.fno group by c.fno),0) cnt
     	from
-    		franchise
-		where
-			delyn='y'
+    		franchise f
+			where	
+			 f.delyn='y'
 			<if test="name != null">
 				and name like concat('%',#{name},'%')
 			</if>
@@ -353,6 +354,7 @@
     
     <select id="salesDetail" parameterType="map" resultType="hashmap">
     	select
+    		@ROWNUM := @ROWNUM + 1 AS ROWNUM,
 			s.num,
 			s.customernum,
 			s.name,
@@ -367,6 +369,7 @@
 			s.memo
 			<!-- count(*) re -->
 		from
+			(SELECT @ROWNUM := 0) r,
 			sales s
 		inner join products p on s.service = p.num
 		where
@@ -382,7 +385,7 @@
 				and s.division = #{division}
 			</if>
 		<!-- GROUP BY s.customernum -->
-    	ORDER BY num DESC
+    	ORDER BY ROWNUM DESC
     	LIMIT 
     		#{pageCount},#{countperPage}
     </select>
@@ -410,6 +413,7 @@
     
     <select id="customerDetail" parameterType="map" resultType="hashmap">
     	select
+    		@ROWNUM := @ROWNUM + 1 AS ROWNUM,
 			c.num,
 			c.name,
 			c.birthday,
@@ -419,9 +423,10 @@
 			c.carnumber,
 			count(c.num) cnt
 		from 
+			(SELECT @ROWNUM := 0) r,
 			customer c
-		inner join franchise f on c.fno = f.fno
-		inner join automobile a on c.automobile = a.num
+			inner join franchise f on c.fno = f.fno
+			inner join automobile a on c.automobile = a.num
 		where 
 			c.delyn='y'
 			<if test="fno !=null and fno !=''">
@@ -440,7 +445,7 @@
 				and c.tel like concat('%',#{search},'%')
 			</if>
 		group by c.num	
-		order by c.num DESC
+		order by ROWNUM DESC
     	limit 
     		#{pageCount},#{countperPage}
     </select>

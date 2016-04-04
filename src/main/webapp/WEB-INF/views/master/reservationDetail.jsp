@@ -19,7 +19,7 @@
 			<div class="col-md-12 portlets">
             <div class="panel panel-default">
 				<div class="panel-heading">
-                  <h2><strong>${fname}</strong></h2>
+                  <h2><strong>${fname}<a href="/master/reservationList/${fno}" class=" btn btn-primary btn-xs">예약게시판으로 이동</a></strong></h2>
 				<div class="panel-actions">
                     <a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
                     <a href="#" class="wclose"><i class="fa fa-times"></i></a>

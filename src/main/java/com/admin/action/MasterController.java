@@ -721,6 +721,12 @@ public class MasterController {
 		model.addAttribute("date", request.getParameter("dt"));
 		model.addAttribute("time", request.getParameter("time"));
 		model.addAttribute("fno", request.getParameter("fno"));
+		
+		String num = request.getParameter("num");
+		String name = request.getParameter("name");
+		if(num !=null){model.addAttribute("num", request.getParameter("num"));}
+		if(name !=null){model.addAttribute("name", request.getParameter("name"));}
+
 		return "master/reserveform";		
 	}
 	
@@ -789,7 +795,6 @@ public class MasterController {
 	public List<Map<String,Object>> getCustomer(HttpServletRequest request){
 		logger.info("getCustomer");
 		
-
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("fno", request.getParameter("fno"));
 		map.put("division", request.getParameter("division"));
@@ -926,5 +931,32 @@ public class MasterController {
 		managementService.clientDelete(no);
 		
 		return "redirect:/master/customerDetail";
+	}
+	
+	@RequestMapping(value="/reservationList/{no}", method = {RequestMethod.GET,RequestMethod.POST})
+	public String reservationList(Locale locale,Model model,HttpServletRequest request,@PathVariable String no){
+		logger.info("reservationList");
+		
+		String PaginationNum = request.getParameter("PaginationNum");
+		String qnalist = request.getParameter("qnalist");
+		String search = request.getParameter("search");
+		Map <String,Object> map = new HashMap<String,Object>();
+		map.put("store", no);
+		if(qnalist!=null){
+			map.put("qnalist", qnalist);
+			map.put("search", search);
+		}
+		int CustomerListTotal = managementService.getReservationListTotal(map);
+		
+		//페이징
+		Utilities util = new Utilities();
+		Map<String,Object> param =util.pagination(10,CustomerListTotal,PaginationNum);
+		param.putAll(map);
+		
+		List<Map<String,Object>> reservationlist = managementService.getReservationList(param);
+		model.addAttribute("reservationList", reservationlist);
+		model.addAttribute("paramInfo", param);
+		
+		return "master/reservationList";		
 	}
 }
