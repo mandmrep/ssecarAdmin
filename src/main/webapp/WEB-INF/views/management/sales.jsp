@@ -9,7 +9,7 @@
 					<i class="fa fa-laptop"></i>관리시스템
 				</h3>
 				<ol class="breadcrumb">
-					<li><i class="fa fa-home"></i>매출관리(서비스)</li>
+					<li><i class="fa fa-home"></i>매출관리</li>
 				</ol>
 			</div>
 		</div>

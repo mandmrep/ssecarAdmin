@@ -17,7 +17,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div id="search_div" style="margin-bottom: 10px;">
-					<a href="/management/reservation" class="btn btn-default">예약 게시판으로 이동</a>
+					<a href="/management/customer" class="btn btn-default">예약 게시판으로 이동</a>
 				</div>
 			</div>
 		</div>
@@ -83,8 +83,8 @@
       	</div>
       </div>
       <div class="modal-footer">
-      	<button type="button" class="btn btn-success" onclick="updateColor('green')">완료</button>
-	    <button type="button" class="btn btn-warning" onclick="updateColor('yellow')">취소</button>
+      	<!-- <button type="button" class="btn btn-success" onclick="updateColor('green')">완료</button>
+	    <button type="button" class="btn btn-warning" onclick="updateColor('yellow')">취소</button> -->
       	<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
       </div>
     </div>
