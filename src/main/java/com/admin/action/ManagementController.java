@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.admin.dto.UserVo;
 import com.admin.service.ManagementService;
+import com.admin.service.MasterService;
 import com.admin.util.Utilities;
 
 @Controller
@@ -32,6 +33,9 @@ public class ManagementController {
 	
 	@Autowired
 	private ManagementService managementService;
+	
+	@Autowired
+	private MasterService masterService;
 			
 	@RequestMapping(value="/reservation", method = RequestMethod.GET)
 	public String main(Locale locale,Model model,HttpServletRequest request){
@@ -287,7 +291,7 @@ public class ManagementController {
 		return "redirect:/management/reservation";		
 	}
 	
-	@RequestMapping(value="/sales", method = RequestMethod.GET)
+	@RequestMapping(value="/sales", method = {RequestMethod.GET,RequestMethod.POST})
 	public String sales(Model model,HttpServletRequest request){
 		logger.info("sales");
 		
@@ -299,42 +303,18 @@ public class ManagementController {
 		map.put("fno", user.getFno());
 		map.put("division", request.getParameter("division") );
 		
+		 String qnalist = request.getParameter("qnalist");
+		 if(qnalist !=null){
+			 map.put("qnalist", request.getParameter("qnalist") );
+			 map.put("search",request.getParameter("search"));
+		 }
+		
+		
 		int SalesListTotal = managementService.getSalesListTotal(map);
 		
 		//페이징
 		Utilities util = new Utilities();
 		Map<String,Object> param =util.pagination(10,SalesListTotal,"1");
-		param.putAll(map);
-		
-		List<Map<String,Object>> sales = managementService.getSalesList(param);
-		model.addAttribute("sales", sales);
-		model.addAttribute("paramInfo", param);
-		
-		return "management/sales";
-	}
-	
-	@RequestMapping(value="/sales", method = RequestMethod.POST)
-	public String salespost(Model model,HttpServletRequest request){
-		logger.info("salespost");
-		
-		//로그인정보
-		UserVo user =  (UserVo)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
-		//parameter
-		String PaginationNum = request.getParameter("PaginationNum");
-		String qnalist = request.getParameter("qnalist");
-		String search = request.getParameter("search");
-		
-		Map <String,Object> map = new HashMap<String,Object>();
-		map.put("fno", user.getFno());
-		map.put("qnalist", qnalist );
-		map.put("search", search );
-		
-		int SalesListTotal = managementService.getSalesListTotal(map);
-		
-		//페이징
-		Utilities util = new Utilities();
-		Map<String,Object> param =util.pagination(10,SalesListTotal,PaginationNum);
 		param.putAll(map);
 		
 		List<Map<String,Object>> sales = managementService.getSalesList(param);
@@ -519,28 +499,49 @@ public class ManagementController {
 		return "redirect:/management/"+path;
 	}
 	
-	@RequestMapping(value="/day",method= RequestMethod.GET)
+	@RequestMapping(value="/day",method= {RequestMethod.GET,RequestMethod.POST})
 	public String day(Model model,HttpServletRequest request){
 		logger.info("day");
 		
 		//로그인정보
 		UserVo user =  (UserVo)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
+		
+		String fname = request.getParameter("fname");
+		String year = request.getParameter("year");
+		String month = request.getParameter("month");
+		String division = request.getParameter("division");
+		
 		//현재 년월 구하기
-		GregorianCalendar today = new GregorianCalendar ( );
-		int year = today.get ( today.YEAR );
-		int month = today.get ( today.MONTH ) + 1;
+		GregorianCalendar today = new GregorianCalendar ();
+
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("fno", user.getFno());
+		map.put("fname", fname);
 		
-		Map<String,Object> param = new HashMap<String, Object>();
-		param.put("fno", user.getFno());
-		param.put("month", month);
-		param.put("year", year);
+		if(year == null || year.equals("") ){
+			int year_gre = today.get ( today.YEAR );
+			map.put("year", year_gre);
+		}else{
+			map.put("year", year);
+		}
+		
+		if(month == null || month.equals("")){
+			int month_gre = today.get ( today.MONTH ) + 1;
+			map.put("month", month_gre);
+		}else{
+			map.put("month", month);
+		}
+		if(division !=null && !division.equals("")){
+			map.put("division", division);
+		}
 		
 		
-		List<Map<String,Object>> days = managementService.getDaySalesList(param);
-		model.addAttribute("days", days);
-		List<Map<String,Object>> years = managementService.getYearList(param);
-		model.addAttribute("years", years);
+		List<Map<String,Object>> days = managementService.getDaySalesList(map);
+		Map<String, Object> dayTotal = masterService.dayTotal(map);
+		model.addAttribute("dayList", days);
+		model.addAttribute("dayTotal", dayTotal);
+		model.addAttribute("paramInfo", map);
 		return "management/day";
 	}
 	
@@ -566,7 +567,7 @@ public class ManagementController {
 		return list;
 	}
 	
-	@RequestMapping(value="/month",method= RequestMethod.GET)
+	@RequestMapping(value="/month",method= {RequestMethod.GET,RequestMethod.POST})
 	public String month(Model model){
 		logger.info("month");
 		

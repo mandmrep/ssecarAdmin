@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <section id="main-content">
 	<section class="wrapper">
 
@@ -20,46 +21,62 @@
 				<section class="panel">
 
 					<div class="panel-body">
-						<form action="/management/sales" method="post">
+						<form  id="sForm" action="/management/sales" method="post">
+							<input type="hidden" id="division" name="division" value="${ paramInfo.division }">
+							<div class="btn-group" role="group" aria-label="..." style="margin: 10px 10px 10px; ">
+								  <button type="button" class="btn btn-default active">일매출</button>
+								  <button type="button" class="btn btn-default" onclick="detail('${paramInfo.fno}','day')">월매출</button>
+								  <button type="button" class="btn btn-default" onclick="detail('${paramInfo.fno}','month')">연매출</button>
+							</div>
+							<div class="btn-group" role="group" aria-label="..." style="margin: 10px 10px 10px; ">
+								  <button type="button" class="btn btn-default <c:if test='${empty paramInfo.division}'> active</c:if>" onclick="div('')">전 체</button>
+								  <button type="button" class="btn btn-default <c:if test='${paramInfo.division eq "서비스"}'> active</c:if>" onclick="div('서비스')">서비스</button>
+								  <button type="button" class="btn btn-default <c:if test='${paramInfo.division eq "제품"}'> active</c:if>" onclick="div('제품')">제품</button>
+							</div>
 							<div id="search_div">
-								<select name="qnalist" class="search_qna" style="width: 100px;" required="required">
+								<select name="qnalist" class="search_qna" style="width: 100px;">
 									<option value="">선택하세요</option>
-									<option value="name">고객명</option>
+									<option value="name" <c:if test='${paramInfo.qnalist eq "name"}'> selected="selected"</c:if>>고객명</option>
+									<option value="customernum" <c:if test='${paramInfo.qnalist eq "customernum"}'> selected="selected"</c:if>>고객no</option>
 								</select>
-								<input type="text" id="search" name="search" size="30" class="search_qna" required="required">
+								<input type="text" id="search" name="search" size="30" value="${paramInfo.search}" class="search_qna">
 								<button type="submit" class="search_qna">검색</button>
 							</div>
 						</form>
 						<table id="salesTable" class="table table-striped table-advance table-hover">
 							<tbody>
 								<tr>
-									<th>#</th>
+									<th>총No</th>
+									<th>고객No</th>
 									<th><i class="icon_calendar"></i> 고객명</th>
 									<th><i class="icon_calendar"></i> 날짜</th>
-									<th><i class="icon_calendar"></i> 서비스명</th>
+									<th><i class="icon_calendar"></i> 구분</th>
+									<th><i class="icon_calendar"></i> 제품명</th>
 									<th><i class="icon_mail_alt"></i> 카드</th>
 									<th><i class="icon_mail_alt"></i> 현금</th>
-									<th><i class="icon_mail_alt"></i>온라인</th>
-									<th><i class="icon_mail_alt"></i>소셜</th>
-									<th><i class="icon_mail_alt"></i>쿠폰</th>
-									<th><i class="icon_mail_alt"></i>합계</th>
+									<th><i class="icon_mail_alt"></i> 온라인</th>
+									<th><i class="icon_mail_alt"></i> 소셜</th>
+									<th><i class="icon_mail_alt"></i> 쿠폰</th>
+									<th><i class="icon_mail_alt"></i> 합계</th>
 									<th><i class="icon_mail_alt"></i> 비고</th>
-									<th><i class="icon_cogs"></i> 수정/삭제</th>
+									<th><i class="icon_mail_alt"></i> 수정/삭제</th>
 								</tr>
 
 								<c:forEach var="sale" items="${sales}">
 									<tr>
-										<td>${sale.num}</td>
-										<td>${sale.name}</td>
+										<td><fmt:parseNumber value="${sale.ROWNUM}" integerOnly="true"/></td>
+										<td>${sale.customernum}</td>
+										<td><a href="/management/client/${sale.customernum}">${sale.name}</a></td>
 										<td>${sale.date}</td>
+										<td>${sale.division}</td>
 										<td>${sale.service}</td>
 										<td>${sale.card}</td>
 										<td>${sale.cash}</td>
 										<td>${sale.online}</td>
 										<td>${sale.social}</td>
 										<td>${sale.coupon}</td>
-										<td>${sale.total}</td>
-										<td><a href="#" data-toggle="tooltip" title="${sale.memo}">비고</a></td>
+										<td>${sale.card+sale.cash+sale.online}</td>
+										<td><a data-toggle="tooltip" title="${sale.memo}">비고</a></td>
 										<td>
 											<div class="btn-group">
 												<a class="btn btn-primary" href="/management/salesUpdate/${sale.num}"><i class="icon_plus_alt2"></i></a>
@@ -114,7 +131,7 @@
 </section>
 <script>
 
-$("#salesTable > tr > td:eq(7)").tooltip();
+$("#salesTable > tr > td:eq(12)").tooltip();
 
 function del(idx,path){
 	var letitgo = confirm('삭제하시겠습니까?');
@@ -134,5 +151,21 @@ function pagination(idx) {
     var PaginationNum = $('<input type="hidden" name="PaginationNum" value="'+idx+'">');
     $form.append(PaginationNum).append(qnalist).append(search);
     $form.submit();
+}
+
+function detail(idx,url){
+	var $form = $('<form></form>');
+	$form.attr('action', '/management/'+url);
+    $form.attr('method', 'post');
+    $form.appendTo('body');
+    
+    var idx = $('<input type="hidden" name="fno" value="'+idx+'">');
+    $form.append(idx);
+    $form.submit();
+}
+
+function div(val){
+	$('#division').val(val);
+	$('#sForm').submit();
 }
 </script>

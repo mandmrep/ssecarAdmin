@@ -315,29 +315,36 @@
     
     <select id="getSalesList" parameterType="map" resultType="hashmap">
     	select
+			@ROWNUM := @ROWNUM + 1 AS ROWNUM,
 			s.num,
+			s.customernum,
 			s.name,
 			s.date,
+			s.division,
 			p.name service,
-			FORMAT(s.card,0) card,
-			FORMAT(s.cash,0) cash,
-			FORMAT(s.online,0) online,
-			FORMAT(s.social,0) social,
-			FORMAT(s.coupon,0) coupon,
-			FORMAT(s.etc,0) etc,
-			FORMAT((s.card+s.online+s.cash),0) total,
-			s.memo 
+			if(s.card!='',s.card,'0') card,
+			if(s.cash!='',s.cash,'0') cash,
+			s.online,
+			s.social,
+			s.coupon,
+			s.memo
 		from
+			(SELECT @ROWNUM := 0) r,
 			sales s
 		inner join products p on s.service = p.num
 		where
 			s.delyn='y'
 			and fno = #{fno}
-			and s.division='서비스'
+			<if test="division !=null and division !=''">
+			and s.division=#{division}
+			</if>
 			<if test="qnalist =='name'">
 			and s.name like concat('%',#{search},'%')
 			</if>
-    	ORDER BY num DESC
+			<if test="qnalist =='customernum'">
+				and s.customernum like concat('%',#{search},'%')
+			</if>
+    	ORDER BY ROWNUM DESC
     	LIMIT 
     		#{pageCount},#{countperPage}
     </select>
@@ -350,9 +357,14 @@
     	where
     		delyn='y'
     		and fno = #{fno}
-    		and division='서비스'
+    		<if test="division !=null and division !=''">
+			and division=#{division}
+			</if>
     		<if test="qnalist =='name'">
 			and name like concat('%',#{search},'%')
+			</if>
+			<if test="qnalist =='customernum'">
+				and customernum like concat('%',#{search},'%')
 			</if>
     </select>
     
@@ -450,21 +462,26 @@
     
     <select id="getDaySalesList" parameterType="map" resultType="hashmap">
     	select 
-			date,
-			count(date) cnt,
-			FORMAT(sum(card),0) card,
-			FORMAT(sum(cash),0) cash,
-			FORMAT(sum(etc),0) etc,
-			FORMAT( ( sum(card)+sum(etc)+sum(cash) ),0) total
+			s.date,
+			count(s.date) cnt,
+			FORMAT(sum(s.card),0) card,
+			FORMAT(sum(s.cash),0) cash,
+			FORMAT(sum(s.online),0) online,
+			FORMAT(sum(s.social),0) social,
+			FORMAT(sum(s.coupon),0) coupon,
+			FORMAT(sum(s.etc),0) etc,
+			FORMAT( ( sum(s.card)+sum(s.cash)+sum(s.online) ),0) total
 		from 
-			sales 
+			sales s
 		where
-			fno = #{fno}
-			and year(date) = #{year}
-			and month(date) = #{month}
-			and delyn='y'
-		group by date 
-		order by date desc
+			s.fno = #{fno}
+			and year(s.date) = #{year}
+			and month(s.date) = #{month}
+			<if test="division !=null">
+			and s.division = #{division}
+			</if>
+		group by s.date 
+		order by s.date desc
     </select>
     
     <select id="getDayJson" parameterType="map" resultType="hashmap">

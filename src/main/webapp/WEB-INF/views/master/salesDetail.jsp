@@ -42,11 +42,6 @@
 							  <button type="button" class="btn btn-default <c:if test='${paramInfo.division eq "제품"}'> active</c:if>" onclick="div('제품')">제품</button>
 						</div>
 						<div id="search_div">
-							<%-- <select name="division" class="search_qna" style="width: 100px;">
-								<option value="">선택하세요</option>
-								<option value="서비스" <c:if test='${paramInfo.division eq "서비스"}'> selected="selected"</c:if>>서비스</option>
-								<option value="제품"   <c:if test='${paramInfo.division eq "제품"}'> selected="selected"</c:if>>제품</option>
-							</select> --%>
 							<select name="qnalist" class="search_qna" style="width: 100px;">
 								<option value="">선택하세요</option>
 								<option value="name" <c:if test='${paramInfo.qnalist eq "name"}'> selected="selected"</c:if>>고객명</option>
