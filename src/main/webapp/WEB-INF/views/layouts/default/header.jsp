@@ -47,10 +47,10 @@
 				<ul class="sub">
 					<li><a href="/management/reservation">예약관리</a></li>
 					<li><a href="/management/calendar">예약관리(캘린더)</a></li>
-					<li><a href="/management/sales">매출관리(서비스)</a></li>
-					<li><a href="/management/products">매출관리(제품)</a></li>
+					<li><a href="/management/sales">매출관리</a></li>
+					<!-- <li><a href="/management/products">매출관리(제품)</a></li>
 					<li><a href="/management/day">일매출조회</a></li>
-					<li><a href="/management/month">월매출조회</a></li>
+					<li><a href="/management/month">월매출조회</a></li> -->
 					<li><a href="/management/client">고객관리</a></li>
 				</ul>
 			</li>

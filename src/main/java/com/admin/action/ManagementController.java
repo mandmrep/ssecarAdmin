@@ -112,12 +112,15 @@ public class ManagementController {
 	}
 	
 	@RequestMapping(value="/reserveform")
-	public String reserveform(Model model){
+	public String reserveform(Model model,HttpServletRequest request){
 		logger.info("reserveform");
-		
+		String num = request.getParameter("num");
+		String name = request.getParameter("name");
 		List<Map<String,Object>> products = managementService.getProductsList();
 		List<Map<String,Object>> manufacturer = managementService.getManufacturerList();
 		
+		if(num!=null){model.addAttribute("num", num);}
+		if(name!=null){model.addAttribute("name", name);}
 		model.addAttribute("products", products);
 		model.addAttribute("manufacturer", manufacturer);
 		
@@ -568,29 +571,37 @@ public class ManagementController {
 	}
 	
 	@RequestMapping(value="/month",method= {RequestMethod.GET,RequestMethod.POST})
-	public String month(Model model){
+	public String month(Model model,HttpServletRequest request){
 		logger.info("month");
+
+		String year = request.getParameter("year");
+		String division = request.getParameter("division");
 		
 		//로그인정보
 		UserVo user =  (UserVo)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
-		//현재 달 구하기
-		GregorianCalendar today = new GregorianCalendar ( );
-		int year = today.get ( today.YEAR );
-		
+
 		Map<String,Object> param = new HashMap<String, Object>();
 		param.put("fno", user.getFno());
-		param.put("year", year);
-		param.put("division", "all");
-		List<Map<String,Object>> years = managementService.getYearList(param);
-		List<Map<String,Object>> yearSales = managementService.getYearSalesList(param);
-		model.addAttribute("years", years);
-		model.addAttribute("yearSales", yearSales);
+		if(year == null || year.equals("") ){
+			GregorianCalendar today = new GregorianCalendar ();
+			int year_gre = today.get ( today.YEAR );
+			param.put("year", year_gre);
+		}else{
+			param.put("year", year);
+		}
+		if(division !=null && !division.equals("")){param.put("division", division);}
 		
+		//List<Map<String,Object>> years = managementService.getYearList(param);
+		//model.addAttribute("years", years);
+		List<Map<String,Object>> yearSales = managementService.getYearSalesList(param);
+		Map<String, Object> monthTotal = masterService.monthTotal(param);
+		model.addAttribute("monthTotal", monthTotal);
+		model.addAttribute("yearSales", yearSales);
+		model.addAttribute("paramInfo", param);
 		return "management/month";
 	}
 	
-	@RequestMapping(value="/month",method= RequestMethod.POST)
+	@RequestMapping(value="/monthAjax",method= RequestMethod.POST)
 	@ResponseBody
 	public List<Map<String,Object>> monthPost(Model model,HttpServletRequest request){
 		logger.info("monthPost");

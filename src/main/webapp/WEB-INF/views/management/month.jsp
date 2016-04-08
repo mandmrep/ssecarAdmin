@@ -38,48 +38,81 @@
 				
 				<section class="panel">
 					
-					<form>
+					<form id="sForm" action="/management/month" method="post">
+						<input type="hidden" id="division" name="division" value="${ paramInfo.division }">
+						<div class="btn-group" role="group" aria-label="..." style="margin: 10px 10px 10px; ">
+							  <button type="button" class="btn btn-default" onclick="detail('${paramInfo.fno}','sales')">일매출</button>
+							  <button type="button" class="btn btn-default" onclick="detail('${paramInfo.fno}','day')">월매출</button>
+							  <button type="button" class="btn btn-default active">연매출</button>
+						</div>
+						<div class="btn-group" role="group" aria-label="..." style="margin: 10px 10px 10px; ">
+							  <button type="button" class="btn btn-default <c:if test='${empty paramInfo.division}'> active</c:if>" onclick="div('')">전 체</button>
+							  <button type="button" class="btn btn-default <c:if test='${paramInfo.division eq "서비스"}'> active</c:if>" onclick="div('서비스')">서비스</button>
+							  <button type="button" class="btn btn-default <c:if test='${paramInfo.division eq "제품"}'> active</c:if>" onclick="div('제품')">제품</button>
+						</div>
 						<div id="search_div" >
-							<select id="year" name="year" class="search_qna" required="required">
-								<option value="">년도선택</option>
-								<c:forEach var="year" items="${years}">
-									<option value="${year.year}">${year.year}년</option>
-								</c:forEach>
+							<select name="year" class="search_qna" style="width: 100px;">
+								<option value="">선택하세요</option>
+								<option value="2015" <c:if test='${paramInfo.year eq "2015"}'> selected="selected"</c:if>>2015</option>
+								<option value="2016" <c:if test='${paramInfo.year eq "2016"}'> selected="selected"</c:if>>2016</option>
+								<option value="2017" <c:if test='${paramInfo.year eq "2017"}'> selected="selected"</c:if>>2017</option>
+								<option value="2018" <c:if test='${paramInfo.year eq "2018"}'> selected="selected"</c:if>>2018</option>
+								<option value="2019" <c:if test='${paramInfo.year eq "2019"}'> selected="selected"</c:if>>2019</option>
+								<option value="2020" <c:if test='${paramInfo.year eq "2020"}'> selected="selected"</c:if>>2020</option>
+								<option value="2021" <c:if test='${paramInfo.year eq "2021"}'> selected="selected"</c:if>>2021</option>
+								<option value="2022" <c:if test='${paramInfo.year eq "2022"}'> selected="selected"</c:if>>2022</option>
+								<option value="2023" <c:if test='${paramInfo.year eq "2023"}'> selected="selected"</c:if>>2023</option>
+								<option value="2024" <c:if test='${paramInfo.year eq "2024"}'> selected="selected"</c:if>>2024</option>
+								<option value="2025" <c:if test='${paramInfo.year eq "2025"}'> selected="selected"</c:if>>2025</option>
+								<option value="2026" <c:if test='${paramInfo.year eq "2026"}'> selected="selected"</c:if>>2026</option>
 							</select>
-							<select id="division" name="division" class="search_qna" required="required">
-								<option value="">매출구분</option>
-								<option value="서비스">서비스</option>
-								<option value="제품 ">제품</option>
-								<option value="all">전체매출</option>
-							</select>
-							<button type="button" class="search_btn" onclick="search()">검색</button>
+							<button type="submit" class="search_btn">검색</button>
 						</div>
 					</form>
 					
 					<div class="panel-body">
 						<table id="yearTable" class="table table-striped table-advance table-hover">
 							<tbody>
+							<tr>
+								<th><i class="icon_calendar"></i> 일자</th>
+								<th><i class="icon_calendar"></i> 카드</th>
+								<th><i class="icon_calendar"></i> 현금</th>
+								<th><i class="icon_calendar"></i> 온라인</th>
+								<th><i class="icon_calendar"></i> 소셜</th>
+								<th><i class="icon_calendar"></i> 쿠폰</th>
+								<th><i class="icon_mail_alt"></i>월 합계</th>
+							</tr>
+
+							<c:forEach var="month" items="${monthList}">
 								<tr>
-									<th><i class="icon_calendar"></i> 일자</th>
-									<th><i class="icon_calendar"></i> 월별NO</th>
-									<th><i class="icon_calendar"></i> 카드</th>
-									<th><i class="icon_calendar"></i> 현금</th>
-									<th><i class="icon_mail_alt"></i> 기타(소셜/쿠폰)</th>
-									<th><i class="icon_mail_alt"></i> 합계</th>
+									<td>${month.year}</td>
+									<td>${month.card}</td>
+									<td>${month.cash}</td>
+									<td>${month.online}</td>
+									<td>${month.social}</td>
+									<td>${month.coupon}</td>
+									<td>${month.total}</td>
 								</tr>
-
-								<c:forEach var="year" items="${yearSales}">
-									<tr>
-										<td>${year.year}</td>
-										<td>${year.cnt}</td>
-										<td>${year.card}</td>
-										<td>${year.cash}</td>
-										<td>${year.etc}</td>
-										<td>${year.total}</td>
-									</tr>
-								</c:forEach>
-
-							</tbody>
+							</c:forEach>
+							<tr>
+								<td>합계</td>
+								<td>${monthTotal.card}</td>
+								<td>${monthTotal.cash}</td>
+								<td>${monthTotal.online}</td>
+								<td>${monthTotal.social}</td>
+								<td>${monthTotal.coupon}</td>
+								<td>${monthTotal.total}</td>
+							</tr>
+							<tr>
+								<td>총계</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td>${monthTotal.alltotal}</td>
+							</tr>
+						</tbody>
 						</table>
 
 					</div>
@@ -130,5 +163,20 @@
 				
 			}
 		});
+	}
+	
+	function detail(idx,url){
+		var $form = $('<form></form>');
+		$form.attr('action', '/management/'+url);
+	    $form.attr('method', 'post');
+	    $form.appendTo('body');
+	    
+	    var idx = $('<input type="hidden" name="fno" value="'+idx+'">');
+	    $form.append(idx);
+	    $form.submit();
+	}
+	function div(val){
+		$('#division').val(val);
+		$('#sForm').submit();
 	}
 </script>

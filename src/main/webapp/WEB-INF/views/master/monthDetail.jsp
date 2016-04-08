@@ -41,7 +41,7 @@
 							  <button type="button" class="btn btn-default <c:if test='${paramInfo.division eq "제품"}'> active</c:if>" onclick="div('제품')">제품</button>
 						</div>
 						<div id="search_div" >
-							<select name="year" class="search_qna" style="width: 100px;" required="required">
+							<select name="year" class="search_qna" style="width: 100px;">
 								<option value="">선택하세요</option>
 								<option value="2015" <c:if test='${paramInfo.year eq "2015"}'> selected="selected"</c:if>>2015</option>
 								<option value="2016" <c:if test='${paramInfo.year eq "2016"}'> selected="selected"</c:if>>2016</option>

@@ -65,6 +65,7 @@ strong{
 
 					</div>
 					<div class="panel-footer" style="text-align: right;">
+						<a class="btn btn-lg btn-danger" href="javascript:goReserve('${clientDetail.fno}','${clientDetail.num}','${clientDetail.name}');">예약</a>
 						<a class="btn btn-lg btn-primary" href="/management/client">목록</a>
 					</div>
 				</section>
@@ -79,12 +80,15 @@ strong{
 						<table id="clientTable" class="table table-striped table-advance table-hover">
 							<tbody>
 								<tr>
-									<th>#</th>
+									<th>예약No</th>
 									<th><i class="icon_calendar"></i> 방문일자</th>
 									<th><i class="icon_calendar"></i> 서비스/제품명</th>
+									<th><i class="icon_calendar"></i> 방문지점</th>
 									<th><i class="icon_profile"></i> 카드</th>
 									<th><i class="icon_mobile"></i> 현금</th>
-									<th><i class="icon_pin_alt"></i> 기타</th>
+									<th><i class="icon_mobile"></i>온라인</th>
+									<th><i class="icon_mobile"></i>소셜</th>
+									<th><i class="icon_mobile"></i>쿠폰</th>
 									<th><i class="icon_pin_alt"></i>합계</th>
 									<th><i class="icon_pin_alt"></i>비고</th>
 								</tr>
@@ -94,9 +98,12 @@ strong{
 										<td>${clientSale.num}</td>
 										<td>${clientSale.date}</td>
 										<td>${clientSale.name}</td>
+										<td>${clientSale.fname}</td>
 										<td>${clientSale.card}</td>
 										<td>${clientSale.cash}</td>
-										<td>${clientSale.etc}</td>
+										<td>${clientSale.online}</td>
+										<td>${clientSale.social}</td>
+										<td>${clientSale.coupon}</td>
 										<td>${clientSale.total}</td>
 										<td><a href="#" data-toggle="tooltip" title="${clientSale.memo}">비고</a></td>
 									</tr>
@@ -150,5 +157,8 @@ function pagination(idx) {
     var PaginationNum = $('<input type="hidden" name="PaginationNum" value="'+idx+'">');
     $form.append(PaginationNum);
     $form.submit();
+}
+function goReserve(f,num,name){
+	location.href='/management/reserveform?num='+num+'&name='+encodeURI(name, 'UTF-8'); //GET방식 한글 파라미터 넘기기 인코딩
 }
 </script>
