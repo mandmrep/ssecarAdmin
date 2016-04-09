@@ -116,11 +116,17 @@ public class ManagementController {
 		logger.info("reserveform");
 		String num = request.getParameter("num");
 		String name = request.getParameter("name");
+		String dt = request.getParameter("dt");
+		String time = request.getParameter("time");
+		
 		List<Map<String,Object>> products = managementService.getProductsList();
 		List<Map<String,Object>> manufacturer = managementService.getManufacturerList();
 		
 		if(num!=null){model.addAttribute("num", num);}
 		if(name!=null){model.addAttribute("name", name);}
+		if(dt!=null){model.addAttribute("dt", dt);}
+		if(time!=null){model.addAttribute("time", time);}
+		
 		model.addAttribute("products", products);
 		model.addAttribute("manufacturer", manufacturer);
 		
@@ -262,7 +268,7 @@ public class ManagementController {
 		return "redirect:/management/reservation";		
 	}
 	
-	@RequestMapping(value="/reservationupdateform", method = RequestMethod.POST)
+	@RequestMapping(value="/reservationupdateform", method = {RequestMethod.GET,RequestMethod.POST})
 	public String reservationupdateform(Model model,HttpServletRequest request){
 		logger.info("reservationupdateform");
 		String idx = request.getParameter("idx");

@@ -30,7 +30,7 @@
 										<div class="form-group">
 											<label class="control-label col-lg-2" for="title">예약일</label>
 											<div class="col-lg-10">
-												<input type="text" class="form-control" id="date" name="date" readonly="readonly">
+												<input type="text" class="form-control" id="date" name="date" value="${dt}" readonly="readonly">
 											</div>
 										</div>
 
@@ -195,6 +195,7 @@
 <script>
 	//datepicker
 	$('#date').daterangepicker(singleoption);
+	$("#start").val("${time}").attr("selected", "selected");
 	
 	function vehicle(){
 		var manu = $('#menu_1').val();

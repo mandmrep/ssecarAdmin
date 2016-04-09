@@ -102,24 +102,35 @@ $('#calendar').fullCalendar({
 	defaultTimedEventDuration:'01:00:00',
 	eventClick: function(calEvent, jsEvent, view) {
 
-		$('#customer').text(calEvent.name);
+	/* 	$('#customer').text(calEvent.name);
 		$('#tel').text(calEvent.tel);
 		$('#service').text(calEvent.title);
 		$('#memo').text(calEvent.memo);
         
-        $('#myModal').modal('show');
-    }/* , dayClick: function(date, jsEvent, view) {
+        $('#myModal').modal('show'); */
+        
+        location.href='/management/reservationupdateform?idx='+calEvent.id;
+    },
+    dayClick: function(date, allDay, jsEvent, view) {
 
-        alert('Clicked on: ' + date);
+        if (allDay) {
+       	 
+       }else{
+           var dt = $.fullCalendar.formatDate( date, 'yyyy-MM-dd' );
+           var time = $.fullCalendar.formatDate( date, 'HH' );
+           var time2 = parseInt(time)+1;
+           if(time2.length==1){
+           	time2 = "0"+time2+":00";
+           }else{
+           	time2 = time2+":00";
+           }
+           time = time+":00-"+time2;     
+           location.href='/management/reserveform?dt='+dt+'&time='+time;
+       }
 
-        alert('Coordinates: ' + jsEvent);
+       //alert('Current view: ' + view.name);
 
-        alert('Current view: ' + view.name);
-
-        // change the day's background color just for fun
-        $(this).css('background-color', 'red');
-
-    } */
+       }
 });
 
 function updateColor(color){
