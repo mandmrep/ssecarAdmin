@@ -564,6 +564,12 @@
 			<if test="division =='tel'">
 				and c.tel like concat('%',#{search},'%')
 			</if>
+			<if test="division =='num'">
+				and c.num like concat('%',#{search},'%')
+			</if>
+			<if test="division =='carnumber'">
+				and c.carnumber like concat('%',#{search},'%')
+			</if>
 		order by c.num DESC
     	limit 
     		#{pageCount},#{countperPage}
@@ -582,6 +588,12 @@
 			</if>
 			<if test="division =='tel'">
 				and c.tel like concat('%',#{search},'%')
+			</if>
+			<if test="division =='num'">
+				and c.num like concat('%',#{search},'%')
+			</if>
+			<if test="division =='carnumber'">
+				and c.carnumber like concat('%',#{search},'%')
 			</if>
     </select>
     

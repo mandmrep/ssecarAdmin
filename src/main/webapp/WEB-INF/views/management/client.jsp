@@ -39,10 +39,12 @@
 						<div id="search_div" >
 							<select id="division" name="division" class="search_qna" required="required">
 								<option value="">검색구분</option>
-								<option value="name">고객명</option>
-								<option value="tel">연락처</option>
+								<option value="name" <c:if test="${param.division eq 'name'}">selected="selected"</c:if>>고객명</option>
+								<option value="num" <c:if test="${param.division eq 'num'}">selected="selected"</c:if>>고객No</option>
+								<option value="carnumber" <c:if test="${param.division eq 'carnumber'}">selected="selected"</c:if>>차량번호</option>
+								<option value="tel" <c:if test="${param.division eq 'tel'}">selected="selected"</c:if>>연락처</option>
 							</select>
-							<input type="text" id="search" name="search" class="search_qna" style="width:200px;">
+							<input type="text" id="search" name="search" class="search_qna" style="width:200px;" value="${param.search}">
 							<button type="submit" class="search_btn">검색</button>
 						</div>
 					</form>
