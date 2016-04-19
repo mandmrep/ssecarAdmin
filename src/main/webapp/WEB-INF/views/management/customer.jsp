@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <section id="main-content">
 	<section class="wrapper">
 
@@ -32,25 +33,30 @@
 									<th><i class="icon_mobile"></i> 전화번호</th>
 									<th><i class="icon_pin_alt"></i> 차종</th>
 									<th><i class="icon_pin_alt"></i>서비스명</th>
-									<th><i class="icon_pin_alt"></i> 비고</th>
 									<th><i class="icon_cogs"></i> 삭제</th>
 								</tr>
 
 								<c:forEach var="customer" items="${customerlist}">
-									<tr>
+									<tr id="title_${customer.num}">
 										<td>${customer.num}</td>
 										<td>${customer.date}</td>
 										<td>${customer.name}</td>
 										<td>${customer.tel}</td>
 										<td>${customer.vehicle}</td>
 										<td>${customer.service}</td>
-										<td><a href="#" data-toggle="tooltip" title="${customer.memo}">비고</a></td>
-										
 										<td>
 											<div class="btn-group">
 												<a class="btn btn-danger" href="javascript:del(${customer.num});"><i class="icon_close_alt2"></i></a>
 											</div>
 										</td>
+									</tr>
+									<tr id="content_${customer.num}" style="display: none;">
+									<%
+									     //치환 변수 선언합니다.
+									      pageContext.setAttribute("crcn", "\r\n"); //Space, Enter
+									      pageContext.setAttribute("br", "<br/>"); //br 태그
+									%> 
+										<td colspan="7">${fn:replace(customer.memo ,crcn, br)}"</td>
 									</tr>
 								</c:forEach>
 
@@ -126,4 +132,10 @@ function pagination(idx) {
     $form.append(qna).append(sch).append(PaginationNum);
     $form.submit();
 }
+
+$('[id^=title]').on('click',function(e){
+	var idx = this.id.replace('title_','');
+	$('#content_'+idx).slideToggle('fast');
+	e.preventDefault();
+});
 </script>
