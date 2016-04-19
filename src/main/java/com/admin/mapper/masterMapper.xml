@@ -366,15 +366,16 @@
 			s.online,
 			s.social,
 			s.coupon,
-			s.memo
-			<!-- count(*) re -->
+			s.memo,
+			(select name from automobile a where a.num = c.automobile) auto
 		from
 			(SELECT @ROWNUM := 0) r,
 			sales s
 		inner join products p on s.service = p.num
+		inner join customer c on s.customernum = c.num
 		where
 			s.delyn='y'
-			and fno = #{fno}
+			and s.fno = #{fno}
 			<if test="qnalist =='name'">
 				and s.name like concat('%',#{search},'%')
 			</if>
@@ -397,7 +398,7 @@
 	    		sales s
 	    	where
 	    		delyn='y'
-	    		and fno = #{fno}
+	    		and s.fno = #{fno}
 	    		<if test="qnalist =='name'">
 					and s.name like concat('%',#{search},'%')
 				</if>

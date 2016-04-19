@@ -43,12 +43,18 @@
 								<button type="submit" class="search_qna">검색</button>
 							</div>
 						</form>
+						<div id="search_div">
+							<input type="text" id="start" name="start" size="15" class="search_qna">
+							<input type="text" id="end" name="end" size="15" class="search_qna">
+							<button type="button" class="search_qna" onclick="down()">다운로드</button>
+						</div>
 						<table id="salesTable" class="table table-striped table-advance table-hover">
 							<tbody>
 								<tr>
 									<th>총No</th>
 									<th>고객No</th>
-									<th><i class="icon_calendar"></i> 고객명</th>
+									<th><i class="icon_calendar"></i>고객명</th>
+									<th><i class="icon_calendar"></i>차종</th>
 									<th><i class="icon_calendar"></i> 날짜</th>
 									<th><i class="icon_calendar"></i> 구분</th>
 									<th><i class="icon_calendar"></i> 제품명</th>
@@ -67,6 +73,7 @@
 										<td><fmt:parseNumber value="${sale.ROWNUM}" integerOnly="true"/></td>
 										<td>${sale.customernum}</td>
 										<td><a href="/management/client/${sale.customernum}">${sale.name}</a></td>
+										<td>${sale.auto}</td>
 										<td>${sale.date}</td>
 										<td>${sale.division}</td>
 										<td>${sale.service}</td>
@@ -129,8 +136,11 @@
 		</div>
 	</section>
 </section>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+<script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
 <script>
-
+$('#start,#end').daterangepicker(singleoption);
 $("#salesTable > tr > td:eq(12)").tooltip();
 
 function del(idx,path){
@@ -148,8 +158,9 @@ function pagination(idx) {
     
     var qnalist = $('<input type="hidden" name="qnalist" value="${paramInfo.qnalist}">');
     var search = $('<input type="hidden" name="search" value="${paramInfo.search}">');
+    var division = $('<input type="hidden" name="division" value="${paramInfo.division}">');
     var PaginationNum = $('<input type="hidden" name="PaginationNum" value="'+idx+'">');
-    $form.append(PaginationNum).append(qnalist).append(search);
+    $form.append(PaginationNum).append(qnalist).append(search).append(division);
     $form.submit();
 }
 
@@ -167,5 +178,9 @@ function detail(idx,url){
 function div(val){
 	$('#division').val(val);
 	$('#sForm').submit();
+}
+
+function down(){
+	location.href="/master/down?start="+$('#start').val()+"&end="+$('#end').val()+"&fno=${paramInfo.fno}";
 }
 </script>

@@ -3,7 +3,17 @@
 <section id="main-content">
 	<section class="wrapper">
 
-
+		<div class="row">
+			<div class="col-lg-12">
+				<h3 class="page-header">
+					<i class="fa fa-laptop"></i>게사판관리
+				</h3>
+				<ol class="breadcrumb">
+					<li><i class="fa fa-home"></i>예약게시판</li>
+				</ol>
+			</div>
+		</div>
+		
 		<div class="row">
 			<div class="col-lg-12">
 				<section class="panel">

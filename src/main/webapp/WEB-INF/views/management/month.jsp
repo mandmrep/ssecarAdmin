@@ -75,6 +75,7 @@
 							<tbody>
 							<tr>
 								<th><i class="icon_calendar"></i> 일자</th>
+								<th><i class="icon_calendar"></i>월별no</th>
 								<th><i class="icon_calendar"></i> 카드</th>
 								<th><i class="icon_calendar"></i> 현금</th>
 								<th><i class="icon_calendar"></i> 온라인</th>
@@ -86,6 +87,7 @@
 							<c:forEach var="month" items="${monthList}">
 								<tr>
 									<td>${month.year}</td>
+									<td>${month.cnt}</td>
 									<td>${month.card}</td>
 									<td>${month.cash}</td>
 									<td>${month.online}</td>
@@ -96,6 +98,7 @@
 							</c:forEach>
 							<tr>
 								<td>합계</td>
+								<td></td>
 								<td>${monthTotal.card}</td>
 								<td>${monthTotal.cash}</td>
 								<td>${monthTotal.online}</td>
@@ -105,6 +108,7 @@
 							</tr>
 							<tr>
 								<td>총계</td>
+								<td></td>
 								<td></td>
 								<td></td>
 								<td></td>

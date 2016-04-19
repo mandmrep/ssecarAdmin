@@ -306,9 +306,9 @@ public class ManagementController {
 		
 		//로그인정보
 		UserVo user =  (UserVo)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
+		String PaginationNum= request.getParameter("PaginationNum");
 		Map <String,Object> map = new HashMap<String,Object>();
-		map.put("PaginationNum", request.getParameter("PaginationNum"));
+		map.put("PaginationNum", PaginationNum);
 		map.put("fno", user.getFno());
 		map.put("division", request.getParameter("division") );
 		
@@ -323,7 +323,7 @@ public class ManagementController {
 		
 		//페이징
 		Utilities util = new Utilities();
-		Map<String,Object> param =util.pagination(10,SalesListTotal,"1");
+		Map<String,Object> param =util.pagination(10,SalesListTotal,PaginationNum);
 		param.putAll(map);
 		
 		List<Map<String,Object>> sales = managementService.getSalesList(param);
@@ -602,7 +602,7 @@ public class ManagementController {
 		List<Map<String,Object>> yearSales = managementService.getYearSalesList(param);
 		Map<String, Object> monthTotal = masterService.monthTotal(param);
 		model.addAttribute("monthTotal", monthTotal);
-		model.addAttribute("yearSales", yearSales);
+		model.addAttribute("monthList", yearSales);
 		model.addAttribute("paramInfo", param);
 		return "management/month";
 	}

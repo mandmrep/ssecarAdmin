@@ -327,14 +327,16 @@
 			s.online,
 			s.social,
 			s.coupon,
-			s.memo
+			s.memo,
+			(select name from automobile a where a.num = c.automobile) auto
 		from
 			(SELECT @ROWNUM := 0) r,
 			sales s
 		inner join products p on s.service = p.num
+		inner join customer c on s.customernum = c.num
 		where
 			s.delyn='y'
-			and fno = #{fno}
+			and s.fno = #{fno}
 			<if test="division !=null and division !=''">
 			and s.division=#{division}
 			</if>

@@ -62,6 +62,7 @@
 								<th>총No</th>
 								<th>고객No</th>
 								<th><i class="icon_calendar"></i> 고객명</th>
+								<th><i class="icon_calendar"></i> 차종</th>
 								<th><i class="icon_calendar"></i> 날짜</th>
 								<th><i class="icon_calendar"></i> 구분</th>
 								<th><i class="icon_calendar"></i> 제품명</th>
@@ -79,6 +80,7 @@
 									<td><fmt:parseNumber value="${sale.ROWNUM}" integerOnly="true"/></td>
 									<td>${sale.customernum}</td>
 									<td><a href="/master/customerInfo/${sale.customernum}">${sale.name}</a></td>
+									<td>${sale.auto}</td>
 									<td>${sale.date}</td>
 									<td>${sale.division}</td>
 									<td>${sale.service}</td>
