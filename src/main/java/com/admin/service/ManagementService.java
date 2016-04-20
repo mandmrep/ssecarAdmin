@@ -81,4 +81,6 @@ public interface ManagementService {
 
 	int getClientSalesListTotal(String no);
 
+	Map<String, Object> getCustomerInfo(String cno);
+
 }

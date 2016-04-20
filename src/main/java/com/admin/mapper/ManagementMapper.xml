@@ -544,14 +544,17 @@
     
     <select id="getClientsList" parameterType="map" resultType="hashmap">
     	select
+    		@ROWNUM := @ROWNUM + 1 AS ROWNUM,
 			c.num,
 			c.name,
 			c.birthday,
 			f.name store,
 			c.tel,
 			a.name vehicle,
-			c.carnumber
-		from 
+			c.carnumber,
+			count(c.num) cnt
+		from
+			(SELECT @ROWNUM := 0) r, 
 			customer c
 		inner join franchise f on c.fno = f.fno
 		inner join automobile a on c.automobile = a.num
@@ -570,31 +573,35 @@
 			<if test="division =='carnumber'">
 				and c.carnumber like concat('%',#{search},'%')
 			</if>
-		order by c.num DESC
+		group by c.num	
+		order by ROWNUM DESC
     	limit 
     		#{pageCount},#{countperPage}
     </select>
     
     <select id="getClientsListTotal" parameterType="map" resultType="int">
-    	select
-			count(*)
-		from 
-			customer c
-		where 
-			c.delyn='y'
-			and c.fno = #{fno}
-			<if test="division =='name'">
-				and c.name like concat('%',#{search},'%')
-			</if>
-			<if test="division =='tel'">
-				and c.tel like concat('%',#{search},'%')
-			</if>
-			<if test="division =='num'">
-				and c.num like concat('%',#{search},'%')
-			</if>
-			<if test="division =='carnumber'">
-				and c.carnumber like concat('%',#{search},'%')
-			</if>
+    	select count(*) from (
+	    	select
+				count(*)
+			from 
+				customer c
+			where 
+				c.delyn='y'
+				and c.fno = #{fno}
+				<if test="division =='name'">
+					and c.name like concat('%',#{search},'%')
+				</if>
+				<if test="division =='tel'">
+					and c.tel like concat('%',#{search},'%')
+				</if>
+				<if test="division =='num'">
+					and c.num like concat('%',#{search},'%')
+				</if>
+				<if test="division =='carnumber'">
+					and c.carnumber like concat('%',#{search},'%')
+				</if>
+				group by c.num
+			) tb
     </select>
     
     <select id="getClientDetail" parameterType="string" resultType="map">
@@ -734,5 +741,9 @@
 			sales
 		where 
 			customernum = #{no}
+    </select>
+    
+    <select id="getCustomerInfo" parameterType="string" resultType="hashmap">
+    	select * from request where num = #{cno}
     </select>
 </mapper>

@@ -66,7 +66,7 @@
 										<div class="form-group">
 											<label class="control-label col-lg-2" for="tags">전화번호</label>
 											<div class="col-lg-10">
-												<input type="text" class="form-control" id="tel" name="tel" pattern='[0-9]{9,11}' required="required">
+												<input type="text" class="form-control" id="tel" name="tel" value="${tel }" pattern='[0-9]{9,11}' required="required">
 											</div>
 										</div>
 

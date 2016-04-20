@@ -7,7 +7,7 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<h3 class="page-header">
-					<i class="fa fa-laptop"></i>게사판관리
+					<i class="fa fa-laptop"></i>게시판관리
 				</h3>
 				<ol class="breadcrumb">
 					<li><i class="fa fa-home"></i>예약게시판</li>
@@ -19,33 +19,32 @@
 			<div class="col-lg-12">
 				<section class="panel">
 					<div class="panel-body">
-					
-						<div id="search_div" style="margin-bottom: 10px;">
-							<a href="/management/reservation" class="btn btn-default">예약 게시판으로 이동</a>
-						</div>
 						
 						<table id="customerTable" class="table table-striped table-advance table-hover">
 							<tbody>
 								<tr>
-									<th>#</th>
+									<th>No</th>
 									<th><i class="icon_calendar"></i> 예약일시</th>
 									<th><i class="icon_profile"></i> 고객명</th>
 									<th><i class="icon_mobile"></i> 전화번호</th>
 									<th><i class="icon_pin_alt"></i> 차종</th>
 									<th><i class="icon_pin_alt"></i>서비스명</th>
-									<th><i class="icon_cogs"></i> 삭제</th>
+									<th><i class="icon_pin_alt"></i>메모보기</th>
+									<th><i class="icon_cogs"></i> 예약/삭제</th>
 								</tr>
 
 								<c:forEach var="customer" items="${customerlist}">
-									<tr id="title_${customer.num}">
+									<tr>
 										<td>${customer.num}</td>
 										<td>${customer.date}</td>
 										<td>${customer.name}</td>
 										<td>${customer.tel}</td>
 										<td>${customer.vehicle}</td>
 										<td>${customer.service}</td>
+										<td id="title_${customer.num}"><a>메모보기</a></td>
 										<td>
 											<div class="btn-group">
+												<a class="btn btn-primary" href="/management/reserveform2?cno=${customer.num}"><i class="icon_plus_alt2"></i></a>
 												<a class="btn btn-danger" href="javascript:del(${customer.num});"><i class="icon_close_alt2"></i></a>
 											</div>
 										</td>

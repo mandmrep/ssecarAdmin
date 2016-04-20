@@ -825,4 +825,39 @@ public class ManagementController {
 		List<Map<String,Object>> list = managementService.getCalendarList(param);
 		return list;		
 	}
+	
+	@RequestMapping(value="/reserveform2")
+	public String reserveform2(Model model,HttpServletRequest request){
+		logger.info("reserveform2");
+		String cno = request.getParameter("cno");
+		
+		Map<String,Object> result = managementService.getCustomerInfo(cno);
+		List<Map<String,Object>> products = managementService.getProductsList();
+		List<Map<String,Object>> manufacturer = managementService.getManufacturerList();
+
+		String date=(String)result.get("date");
+		String dt = date.substring(0, 10);
+		String time = date.substring(11, 16);
+		model.addAttribute("dt", dt );
+		model.addAttribute("name", result.get("name") );
+		model.addAttribute("tel", result.get("tel") );
+		
+		if(time.equals("09:00")){time = "09:00-10:00";}
+		if(time.equals("10:00")){time = "10:00-11:00";}
+		if(time.equals("11:00")){time = "11:00-12:00";}
+		if(time.equals("12:00")){time = "12:00-13:00";}
+		if(time.equals("13:00")){time = "13:00-14:00";}
+		if(time.equals("14:00")){time = "14:00-15:00";}
+		if(time.equals("15:00")){time = "15:00-16:00";}
+		if(time.equals("16:00")){time = "16:00-17:00";}
+		if(time.equals("17:00")){time = "17:00-18:00";}
+		if(time.equals("18:00")){time = "18:00-19:00";}
+		if(time.equals("19:00")){time = "19:00-20:00";}
+		if(time.equals("20:00")){time = "20:00-21:00";}
+		model.addAttribute("time", time );
+		model.addAttribute("products", products);
+		model.addAttribute("manufacturer", manufacturer);
+		
+		return "management/reserveform";		
+	}
 }

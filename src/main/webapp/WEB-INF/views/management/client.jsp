@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style>
 .search_qna{
 	height: 30px; 
@@ -52,8 +53,9 @@
 						<table id="clientTable" class="table table-striped table-advance table-hover">
 							<tbody>
 								<tr>
-									<th><i class="icon_pin_alt"></i> 고객NO</th>
-									<th><i class="icon_calendar"></i> 고객명</th>
+									<th><i class="icon_pin_alt"></i> 고객No</th>
+									<th><i class="icon_pin_alt"></i>방문No</th>
+									<th><i class="icon_profile"></i> 고객명</th>
 									<th><i class="icon_calendar"></i> 생일</th>
 									<th><i class="icon_profile"></i> 지점명</th>
 									<th><i class="icon_mobile"></i> 연락처</th>
@@ -65,7 +67,8 @@
 
 								<c:forEach var="client" items="${clients}">
 									<tr>
-										<td>${client.num}</td>
+										<td><fmt:parseNumber value="${client.ROWNUM}" integerOnly="true"/></td>
+										<td>${client.cnt}</td>
 										<td>${client.name}</td>
 										<td>${client.birthday}</td>
 										<td>${client.store}</td>

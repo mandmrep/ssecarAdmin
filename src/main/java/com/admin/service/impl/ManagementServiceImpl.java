@@ -242,4 +242,10 @@ public class ManagementServiceImpl implements ManagementService{
 		return managementDao.getClientSalesListTotal(no);
 	}
 
+	@Override
+	public Map<String, Object> getCustomerInfo(String cno) {
+		// TODO Auto-generated method stub
+		return managementDao.getCustomerInfo(cno);
+	}
+
 }
