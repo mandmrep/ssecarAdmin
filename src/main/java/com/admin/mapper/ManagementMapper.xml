@@ -479,6 +479,7 @@
 			s.fno = #{fno}
 			and year(s.date) = #{year}
 			and month(s.date) = #{month}
+			and delyn='y'
 			<if test="division !=null">
 			and s.division = #{division}
 			</if>
@@ -524,6 +525,7 @@
 	where
 			fno = #{fno}
 			and year(date) = #{year}
+			and delyn='y'
 			<if test="division !=null">
 			and division = #{division}
 			</if>
