@@ -363,9 +363,9 @@
 			p.name service,
 			if(s.card!='',s.card,'0') card,
 			if(s.cash!='',s.cash,'0') cash,
-			s.online,
-			s.social,
-			s.coupon,
+			if(s.online!='',s.online,'0') online,
+			if(s.social!='',s.social,'0') social,
+			if(s.coupon!='',s.coupon,'0') coupon,
 			s.memo,
 			(select name from automobile a where a.num = c.automobile) auto
 		from
