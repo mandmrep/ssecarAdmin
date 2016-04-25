@@ -55,7 +55,7 @@
 									      pageContext.setAttribute("crcn", "\r\n"); //Space, Enter
 									      pageContext.setAttribute("br", "<br/>"); //br 태그
 									%> 
-										<td colspan="7">${fn:replace(customer.memo ,crcn, br)}"</td>
+										<td colspan="7">${fn:replace(customer.memo ,crcn, br)}</td>
 									</tr>
 								</c:forEach>
 
