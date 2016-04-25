@@ -711,6 +711,7 @@
     		num = #{num}
     </update>
     
+   <!--  160425 s.delyn='y' 추가  -->
     <select id="getClientSalesList" parameterType="map" resultType="hashmap">
     	select 
 			s.num,
@@ -730,7 +731,8 @@
 		inner join products p on s.service = p.num
 		inner join franchise f on s.fno = f.fno 
 		where 
-			s.customernum = #{num}
+			s.delyn='y'
+			and s.customernum = #{num}
 		order by s.date desc
 		limit 
     		#{pageCount},#{countperPage}
