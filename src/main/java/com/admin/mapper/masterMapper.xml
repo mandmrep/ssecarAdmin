@@ -577,6 +577,7 @@
 			and area = #{area}
 	</select>
 	
+	<!-- 160425 delyn='y' 추가 -->
 	<select id="dayTotal" parameterType="map" resultType="hashmap">
 		select 
 			FORMAT(sum(card),0) card, 
@@ -603,6 +604,7 @@
 			s.fno = #{fno}
 			and year(s.date) = #{year}
 			and month(s.date) = #{month}
+			and delyn='y'
 			<if test="division !=null">
 			and s.division = #{division}
 			</if>	 
@@ -610,6 +612,7 @@
 		order by s.date desc) tb
 	</select>
 	
+	<!-- 160425 delyn='y' 추가 -->
 	<select id="monthTotal" parameterType="map" resultType="hashmap">
 		select 
 			FORMAT(sum(card),0) card, 
@@ -635,6 +638,7 @@
 		where
 			fno = #{fno}
 			and year(date) = #{year}
+			and delyn='y'
 			<if test="division !=null">
 			and division = #{division}
 			</if>
