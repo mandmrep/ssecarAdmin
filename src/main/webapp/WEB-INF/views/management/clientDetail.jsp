@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style>
 strong{
 	padding-right: 30px;
@@ -95,7 +96,7 @@ strong{
 
 								<c:forEach var="clientSale" items="${clientSales}">
 									<tr>
-										<td>${clientSale.num}</td>
+										<td><fmt:parseNumber value="${clientSale.ROWNUM}" integerOnly="true"/></td>
 										<td>${clientSale.date}</td>
 										<td>${clientSale.name}</td>
 										<td>${clientSale.fname}</td>

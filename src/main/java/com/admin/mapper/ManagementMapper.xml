@@ -712,7 +712,8 @@
     </update>
     
     <select id="getClientSalesList" parameterType="map" resultType="hashmap">
-    	select 
+    	select
+    		@ROWNUM := @ROWNUM + 1 AS ROWNUM,
 			s.num,
 			s.date,
 			p.name,
@@ -725,7 +726,8 @@
 			FORMAT(s.card+s.online+s.cash,0) total,
 			s.memo,
 			f.name fname
-		from 
+		from
+			(SELECT @ROWNUM := 0) r,
 			sales s
 		inner join products p on s.service = p.num
 		inner join franchise f on s.fno = f.fno 

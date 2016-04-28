@@ -41,7 +41,7 @@
 										<td>${customer.tel}</td>
 										<td>${customer.vehicle}</td>
 										<td>${customer.service}</td>
-										<td id="title_${customer.num}"><a>메모보기</a></td>
+										<td id="title_${customer.num}"><a>내용보기</a></td>
 										<td>
 											<div class="btn-group">
 												<a class="btn btn-primary" href="/management/reserveform2?cno=${customer.num}"><i class="icon_plus_alt2"></i></a>

@@ -67,7 +67,7 @@
 
 								<c:forEach var="client" items="${clients}">
 									<tr>
-										<td><fmt:parseNumber value="${client.ROWNUM}" integerOnly="true"/></td>
+										<td><fmt:parseNumber value="${client.num}" integerOnly="true"/></td>
 										<td>${client.cnt}</td>
 										<td>${client.name}</td>
 										<td>${client.birthday}</td>
