@@ -244,8 +244,12 @@ public class ManagementServiceImpl implements ManagementService{
 
 	@Override
 	public Map<String, Object> getCustomerInfo(String cno) {
-		// TODO Auto-generated method stub
 		return managementDao.getCustomerInfo(cno);
+	}
+
+	@Override
+	public void confirmRequest(Map<String, Object> param) {
+		managementDao.confirmRequest(param);
 	}
 
 }

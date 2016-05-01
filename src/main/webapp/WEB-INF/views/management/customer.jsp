@@ -30,11 +30,11 @@
 									<th><i class="icon_pin_alt"></i> 차종</th>
 									<th><i class="icon_pin_alt"></i>서비스명</th>
 									<th><i class="icon_pin_alt"></i>메모보기</th>
-									<th><i class="icon_cogs"></i> 예약/삭제</th>
+									<th><i class="icon_cogs"></i> 예약/삭제/확인</th>
 								</tr>
 
 								<c:forEach var="customer" items="${customerlist}">
-									<tr>
+									<tr <c:if test="${customer.readyn eq 'y'}">style="background-color:#e5f6ff;"</c:if>>
 										<td>${customer.num}</td>
 										<td>${customer.date}</td>
 										<td>${customer.name}</td>
@@ -46,6 +46,7 @@
 											<div class="btn-group">
 												<a class="btn btn-primary" href="/management/reserveform2?cno=${customer.num}"><i class="icon_plus_alt2"></i></a>
 												<a class="btn btn-danger" href="javascript:del(${customer.num});"><i class="icon_close_alt2"></i></a>
+												<a class="btn btn-success" href="javascript:confirm(${customer.num});"><i class="icon_plus_alt2"></i></a>
 											</div>
 										</td>
 									</tr>
@@ -137,4 +138,21 @@ $('[id^=title]').on('click',function(e){
 	$('#content_'+idx).slideToggle('fast');
 	e.preventDefault();
 });
+
+function confirm(idx){
+	$.ajax({
+		url:'/management/confirmRequest',
+		data:{ 
+			'idx' : idx
+		},
+		type: "post",
+		dataType :'text',
+		success:function(data){
+			alert(data+ '확인되었습니다.');
+		},error:function(){
+			
+		}
+			
+	});
+}
 </script>

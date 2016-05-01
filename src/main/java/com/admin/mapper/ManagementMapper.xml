@@ -14,7 +14,8 @@
     		date,
     		vehicle,
     		memo,
-    		regDate 
+    		regDate,
+    		readyn
     	FROM 
     		request
     	WHERE delyn='y'
@@ -752,4 +753,13 @@
     <select id="getCustomerInfo" parameterType="string" resultType="hashmap">
     	select * from request where num = #{cno}
     </select>
+    
+    <update id="confirmRequest" parameterType="map">
+    	update
+    		request 
+    	set 
+    		readyn='y'
+    	where
+    		num=#{idx}
+    </update>
 </mapper>

@@ -860,4 +860,23 @@ public class ManagementController {
 		
 		return "management/reserveform";		
 	}
+	
+	@RequestMapping(value="/confirmRequest", method = RequestMethod.POST)
+	@ResponseBody
+	public String confirmRequest(Model model,HttpServletRequest request){
+		logger.info("confirmRequest");
+		
+		@SuppressWarnings("unchecked")
+		Enumeration<String> em =  request.getParameterNames();
+		Map <String,Object> param = new HashMap<String,Object>();
+		
+		while(em.hasMoreElements()){
+			String name=em.nextElement();
+			param.put(name, request.getParameter(name));
+		}
+		
+		managementService.confirmRequest(param);
+		
+		return "aa";
+	}
 }

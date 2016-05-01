@@ -83,4 +83,6 @@ public interface ManagementDao {
 
 	Map<String, Object> getCustomerInfo(String cno);
 
+	void confirmRequest(Map<String, Object> param);
+
 }

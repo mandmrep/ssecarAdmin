@@ -959,4 +959,5 @@ public class MasterController {
 		
 		return "master/reservationList";		
 	}
+	
 }
