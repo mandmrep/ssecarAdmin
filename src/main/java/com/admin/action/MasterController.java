@@ -938,23 +938,19 @@ public class MasterController {
 		logger.info("reservationList");
 		
 		String PaginationNum = request.getParameter("PaginationNum");
-		String qnalist = request.getParameter("qnalist");
-		String search = request.getParameter("search");
-		Map <String,Object> map = new HashMap<String,Object>();
-		map.put("store", no);
-		if(qnalist!=null){
-			map.put("qnalist", qnalist);
-			map.put("search", search);
-		}
-		int CustomerListTotal = managementService.getReservationListTotal(map);
+		if(PaginationNum==null){PaginationNum = "1";}
+		Map <String,Object> param = new HashMap<String,Object>();
+		param.put("PaginationNum", PaginationNum );
+
+		param.put("store", no);
+		int CustomerListTotal = managementService.getCustomerListTotal(param);
 		
 		//페이징
 		Utilities util = new Utilities();
-		Map<String,Object> param =util.pagination(10,CustomerListTotal,PaginationNum);
-		param.putAll(map);
+		param.putAll( util.pagination(10,CustomerListTotal,(String)param.get("PaginationNum")) );
 		
-		List<Map<String,Object>> reservationlist = managementService.getReservationList(param);
-		model.addAttribute("reservationList", reservationlist);
+		List<Map<String,Object>> customerlist = managementService.getCustomerList(param);
+		model.addAttribute("customerlist", customerlist);
 		model.addAttribute("paramInfo", param);
 		
 		return "master/reservationList";		
