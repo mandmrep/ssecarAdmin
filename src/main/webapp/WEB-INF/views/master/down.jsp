@@ -12,6 +12,7 @@
 		<td><i class="icon_mail_alt"></i> 카드</td>
 		<td><i class="icon_mail_alt"></i> 현금</td>
 		<td><i class="icon_mail_alt"></i> 소셜</td>
+		<td><i class="icon_mail_alt"></i> 온라인</td>
 		<td><i class="icon_mail_alt"></i> 쿠폰</td>
 		<td><i class="icon_mail_alt"></i> 합계</td>
 		<td><i class="icon_mail_alt"></i> 비고</td>
@@ -27,8 +28,9 @@
 			<td>${i.card}</td>
 			<td>${i.cash}</td>
 			<td>${i.social}</td>
+			<td>${i.online}</td>
 			<td>${i.coupon}</td>
-			<td>${i.card+i.cash+i.coupon}</td>
+			<td>${i.card+i.cash+i.online}</td>
 			<td>${i.memo}</td>
 		</tr>
 	</c:forEach>
