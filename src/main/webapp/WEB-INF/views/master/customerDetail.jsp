@@ -53,6 +53,7 @@
 					<table class="table table-striped table-advance table-hover">
 						<tbody>
 							<tr>
+								<th>No</th>
 								<th>고객No</th>
 								<th>방문횟수</th>
 								<th><i class="icon_calendar"></i>고객명</th>
@@ -67,6 +68,7 @@
 							<c:forEach var="client" items="${clientDetail}">
 								<tr onclick="location.href='/master/customerInfo/${client.num}';" style="cursor:pointer;">
 									<td><fmt:parseNumber value="${client.ROWNUM}" integerOnly="true"/></td>
+									<td>${client.num}</td>
 									<td>${client.cnt}</td>
 									<td>${client.name}</td>
 									<td>${client.birthday}</td>
