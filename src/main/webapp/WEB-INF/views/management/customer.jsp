@@ -29,7 +29,7 @@
 									<th><i class="icon_mobile"></i> 전화번호</th>
 									<th><i class="icon_pin_alt"></i> 차종</th>
 									<th><i class="icon_pin_alt"></i>서비스명</th>
-									<th><i class="icon_pin_alt"></i>메모보기</th>
+									<th><i class="icon_pin_alt"></i>내용보기</th>
 									<th><i class="icon_cogs"></i> 예약/삭제/확인</th>
 								</tr>
 
@@ -41,7 +41,7 @@
 										<td>${customer.tel}</td>
 										<td>${customer.vehicle}</td>
 										<td>${customer.service}</td>
-										<td id="title_${customer.num}"><a>내용보기</a></td>
+										<td id="title_${customer.num}"><a href="">내용보기</a></td>
 										<td>
 											<div class="btn-group">
 												<a class="btn btn-primary" href="/management/reserveform2?cno=${customer.num}"><i class="icon_plus_alt2"></i></a>
@@ -147,8 +147,8 @@ function confirm(idx){
 		},
 		type: "post",
 		dataType :'text',
-		success:function(data){
-			alert(data+ '확인되었습니다.');
+		success:function(){
+			alert('확인되었습니다.');
 		},error:function(){
 			
 		}
