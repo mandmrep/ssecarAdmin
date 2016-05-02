@@ -694,10 +694,10 @@
 			p.name service,
 			if(s.card!='',s.card,'0') card,
 			if(s.cash!='',s.cash,'0') cash,
-			s.social,
-			s.coupon,
-			s.memo,
-			count(*) re
+			if(s.social!='',s.social,'0') social,
+			if(s.online!='',s.online,'0') online,
+			if(s.coupon!='',s.coupon,'0') coupon,
+			s.memo
 		from
 			sales s
 		inner join products p on s.service = p.num
@@ -714,7 +714,6 @@
 				and s.division = #{division}
 			</if>
 			and s.regdate between '${start} 00:00' and '${end} 24:00'
-		GROUP BY s.customernum
     	ORDER BY s.num DESC
 	</select>
 	
