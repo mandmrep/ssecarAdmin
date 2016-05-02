@@ -53,8 +53,8 @@
 						<table id="clientTable" class="table table-striped table-advance table-hover">
 							<tbody>
 								<tr>
-									<th><i class="icon_pin_alt"></i>No</th>
 									<th><i class="icon_pin_alt"></i>고객No</th>
+									<th><i class="icon_pin_alt"></i>고객수</th>								
 									<th><i class="icon_pin_alt"></i>방문No</th>
 									<th><i class="icon_profile"></i> 고객명</th>
 									<th><i class="icon_calendar"></i>생일</th>
@@ -68,8 +68,8 @@
 
 								<c:forEach var="client" items="${clients}">
 									<tr>
-										<td><fmt:parseNumber value="${client.ROWNUM}" integerOnly="true"/></td>
 										<td><fmt:parseNumber value="${client.num}" integerOnly="true"/></td>
+										<td><fmt:parseNumber value="${client.ROWNUM}" integerOnly="true"/></td>
 										<td>${client.cnt}</td>
 										<td>${client.name}</td>
 										<td>${client.birthday}</td>
