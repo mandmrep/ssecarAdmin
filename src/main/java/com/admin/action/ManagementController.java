@@ -855,6 +855,8 @@ public class ManagementController {
 		if(time.equals("19:00")){time = "19:00-20:00";}
 		if(time.equals("20:00")){time = "20:00-21:00";}
 		model.addAttribute("time", time );
+		
+		model.addAttribute("result", result);
 		model.addAttribute("products", products);
 		model.addAttribute("manufacturer", manufacturer);
 		

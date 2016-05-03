@@ -709,7 +709,7 @@ public class MasterController {
 		return "master/statisticsDetail";
 	}
 	
-	@RequestMapping(value="/reserveform")
+	@RequestMapping(value="/reserveform",method={RequestMethod.GET,RequestMethod.POST})
 	public String reserveform(Model model,HttpServletRequest request){
 		logger.info("reserveform");
 		
@@ -721,6 +721,7 @@ public class MasterController {
 		model.addAttribute("date", request.getParameter("dt"));
 		model.addAttribute("time", request.getParameter("time"));
 		model.addAttribute("fno", request.getParameter("fno"));
+		model.addAttribute("tel", request.getParameter("tel"));
 		
 		String num = request.getParameter("num");
 		String name = request.getParameter("name");

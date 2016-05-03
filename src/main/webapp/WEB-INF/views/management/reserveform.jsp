@@ -82,6 +82,9 @@
 										<div class="form-group">
 											<label class="control-label col-lg-2" for="tags">서비스명</label>
 											<div class="col-lg-10">
+												<c:if test="${result.service ne null}">
+													<p style="font-size: xx-small;">고객요청 : ${result.service}[${result.vehicle}]</p>
+												</c:if>												
 												<select class="form-control" id="service" name="service" required="required">
 													<option value="">선택하세요</option>
 													<c:forEach var="product" items="${products}">
