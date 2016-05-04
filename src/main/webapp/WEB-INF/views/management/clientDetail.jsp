@@ -66,7 +66,13 @@ strong{
 
 					</div>
 					<div class="panel-footer" style="text-align: right;">
-						<a class="btn btn-lg btn-danger" href="javascript:goReserve('${clientDetail.fno}','${clientDetail.num}','${clientDetail.name}');">예약</a>
+						<form id="reform" action="/management/reserveform" method="post">
+							<input type="hidden" name="num" value="${clientDetail.num}"/>
+							<input type="hidden" name="name" value="${clientDetail.name}"/>
+							<input type="hidden" name="fno" value="${clientDetail.fno}"/>
+							<input type="hidden" name="tel" value="${clientDetail.tel}"/>
+						</form>
+						<a class="btn btn-lg btn-danger" href="javascript:goReserve();">예약</a>
 						<a class="btn btn-lg btn-primary" href="/management/client">목록</a>
 					</div>
 				</section>
@@ -160,6 +166,6 @@ function pagination(idx) {
     $form.submit();
 }
 function goReserve(f,num,name){
-	location.href='/management/reserveform?num='+num+'&name='+encodeURI(name, 'UTF-8'); //GET방식 한글 파라미터 넘기기 인코딩
+	$('#reform').submit();
 }
 </script>

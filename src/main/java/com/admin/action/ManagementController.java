@@ -111,14 +111,14 @@ public class ManagementController {
 		return reservationlist;
 	}
 	
-	@RequestMapping(value="/reserveform")
+	@RequestMapping(value="/reserveform",method = {RequestMethod.GET,RequestMethod.POST})
 	public String reserveform(Model model,HttpServletRequest request){
 		logger.info("reserveform");
 		String num = request.getParameter("num");
 		String name = request.getParameter("name");
 		String dt = request.getParameter("dt");
 		String time = request.getParameter("time");
-		
+		String tel = request.getParameter("tel");
 		List<Map<String,Object>> products = managementService.getProductsList();
 		List<Map<String,Object>> manufacturer = managementService.getManufacturerList();
 		
@@ -126,6 +126,7 @@ public class ManagementController {
 		if(name!=null){model.addAttribute("name", name);}
 		if(dt!=null){model.addAttribute("dt", dt);}
 		if(time!=null){model.addAttribute("time", time);}
+		if(tel!=null){model.addAttribute("tel", tel);}
 		
 		model.addAttribute("products", products);
 		model.addAttribute("manufacturer", manufacturer);
