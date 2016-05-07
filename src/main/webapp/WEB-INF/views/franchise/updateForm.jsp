@@ -42,6 +42,7 @@
 										<option value="措傈">措傈</option>
 										<option value="何魂">何魂</option>
 										<option value="堡林">堡林</option>
+										<option value="力林">力林</option>
 									</select>
 								</div>
 							</div>
