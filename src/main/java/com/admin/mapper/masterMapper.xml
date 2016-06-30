@@ -478,6 +478,7 @@
 			) tb
     </select>
     
+    <!-- 160606 delyn='y' 추가 -->
     <select id="dayDetail" parameterType="map" resultType="hashmap">
     	select 
 			s.date,
@@ -493,6 +494,7 @@
 			sales s
 		where
 			s.fno = #{fno}
+			and s.delyn='y'
 			and year(s.date) = #{year}
 			and month(s.date) = #{month}
 			<if test="division !=null">
@@ -501,7 +503,8 @@
 		group by s.date 
 		order by s.date desc
     </select>
-
+	
+	<!-- 160606 delyn='y' 추가 -->
 	<select id="monthDetail" parameterType="map" resultType="hashmap">
 		select 
 			date_format(date,'%Y년 %m월') year,
@@ -517,7 +520,8 @@
 			sales s
 	where
 			fno = #{fno}
-			and year(date) = #{year}
+			and s.delyn='y'
+			and year(date) = #{year}		
 			<if test="division !=null">
 			and division = #{division}
 			</if>

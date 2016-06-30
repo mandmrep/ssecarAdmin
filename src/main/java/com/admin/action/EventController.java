@@ -207,7 +207,7 @@ public class EventController {
                 buffStream.write(bytes);
                 buffStream.close();
                 
-                param.put("thumbnail", "/resources/upload/event/" + fileName );
+                param.put("thumbnail", "http://www.ssecarsteam.com/resources/upload/event/" + fileName );
             } catch (Exception e) {
 
             }
