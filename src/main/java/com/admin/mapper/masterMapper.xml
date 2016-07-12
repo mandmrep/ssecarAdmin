@@ -700,7 +700,16 @@
 			if(s.social!='',s.social,'0') social,
 			if(s.online!='',s.online,'0') online,
 			if(s.coupon!='',s.coupon,'0') coupon,
-			s.memo
+			s.memo,
+			(select case 
+						when date_format(c.regdate,'%Y-%m') = date_format(now(),'%Y-%m') then 'Y'
+						when date_format(c.regdate,'%Y-%m') != date_format(now(),'%Y-%m') then 'N'
+						else '없음'
+       				 end as result 
+				from 
+					customer c 
+				where c.num = s.customernum) regYn,
+			(select date_format(c.regdate,'%Y-%m-%d') from customer c where c.num = s.customernum) regDate
 		from
 			sales s
 		inner join products p on s.service = p.num

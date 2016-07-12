@@ -16,6 +16,8 @@
 		<td><i class="icon_mail_alt"></i> 쿠폰</td>
 		<td><i class="icon_mail_alt"></i> 합계</td>
 		<td><i class="icon_mail_alt"></i> 비고</td>
+		<td><i class="icon_mail_alt"></i> 당월가입여부</td>
+		<td><i class="icon_mail_alt"></i> 가입일</td>
 	</tr>
 	<c:forEach var="i" items="${list}">
 		<tr>
@@ -32,6 +34,8 @@
 			<td>${i.coupon}</td>
 			<td>${i.card+i.cash+i.online}</td>
 			<td>${i.memo}</td>
+			<td>${i.regYn}</td>
+			<td>${i.regDate}</td>
 		</tr>
 	</c:forEach>
 </table>
