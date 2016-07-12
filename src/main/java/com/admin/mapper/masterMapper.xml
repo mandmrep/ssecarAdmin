@@ -422,7 +422,7 @@
 			c.tel,
 			a.name vehicle,
 			c.carnumber,
-			count(c.num) cnt
+			(SELECT count(*) from sales s where s.delyn='y' and s.customernum=c.num) cnt
 		from 
 			(SELECT @ROWNUM := 0) r,
 			customer c
@@ -445,7 +445,6 @@
 			<if test="qnalist =='tel'">
 				and c.tel like concat('%',#{search},'%')
 			</if>
-		group by c.num	
 		order by ROWNUM DESC
     	limit 
     		#{pageCount},#{countperPage}
