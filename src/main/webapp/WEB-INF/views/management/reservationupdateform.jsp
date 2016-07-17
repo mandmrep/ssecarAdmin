@@ -102,6 +102,7 @@
 													<option value="온라인">온라인</option>
 													<option value="오프라인">오프라인</option>
 													<option value="이벤트">이벤트</option>
+													<option value="기존고객">기존고객</option>
 													<option value="기타">기타</option>
 												</select>
 											</div>

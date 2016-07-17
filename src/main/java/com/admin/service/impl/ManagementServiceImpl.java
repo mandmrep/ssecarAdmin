@@ -252,4 +252,10 @@ public class ManagementServiceImpl implements ManagementService{
 		managementDao.confirmRequest(param);
 	}
 
+	@Override
+	public int carNo(Map<String, Object> param) {
+		
+		return managementDao.carNo(param);
+	}
+
 }

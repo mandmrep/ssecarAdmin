@@ -174,7 +174,7 @@
     		* 
     	from 
     		automobile 
-    	where manufacturer = #{manufacturer};
+    	where manufacturer = #{manufacturer}
     </select>
     
     <select id="duplicateReservation" parameterType="map" resultType="int">
@@ -286,7 +286,8 @@
     		social,
     		coupon,
     		memo,
-    		regdate
+    		regdate,
+    		couponNo
     		) 
     	values
     		(#{fno},
@@ -301,7 +302,8 @@
     		#{social},
     		#{coupon},
     		#{memo},
-    		now()
+    		now(),
+    		#{couponNo}
     		)
     </insert>
     
@@ -436,7 +438,8 @@
 			s.online,
 			s.social,
 			s.coupon,
-			s.memo
+			s.memo,
+			s.couponNo
 		from 
 			sales s
 		inner join franchise f on s.fno = f.fno
@@ -458,7 +461,8 @@
     		social=#{social},
     		coupon=#{coupon},
     		memo=#{memo},
-    		moddate=now()
+    		moddate=now(),
+    		couponNo=#{couponNo}
     	where 
     		num=#{num}
     </update>
@@ -560,7 +564,7 @@
 			(SELECT @ROWNUM := 0) r, 
 			customer c
 		inner join franchise f on c.fno = f.fno
-		inner join automobile a on c.automobile = a.num
+		left outer  join automobile a on c.automobile = a.num
 		where 
 			c.delyn='y'
 			and c.fno = #{fno}
@@ -623,7 +627,7 @@
 			f.name store
 		from 
 			customer c
-		inner join automobile a on c.automobile = a.num
+		left outer join automobile a on c.automobile = a.num
 		inner join franchise f on c.fno = f.fno
 		where 
 			c.delyn='y'
@@ -687,7 +691,7 @@
     		c.memo
     	from
     		customer c
-			inner join automobile a on c.automobile = a.num
+			left outer join automobile a on c.automobile = a.num
 			inner join franchise f on c.fno = f.fno 
     	where
     		c.num=#{no} 
@@ -727,7 +731,8 @@
 			FORMAT(s.etc,0) etc,
 			FORMAT(s.card+s.online+s.cash,0) total,
 			s.memo,
-			f.name fname
+			f.name fname,
+			s.couponNo
 		from
 			(SELECT @ROWNUM := 0) r,
 			sales s
@@ -762,4 +767,8 @@
     	where
     		num=#{idx}
     </update>
+    
+    <select id="carNo" parameterType="map" resultType="int">
+    	select count(*) from customer where carnumber = #{carnumber}
+    </select>
 </mapper>

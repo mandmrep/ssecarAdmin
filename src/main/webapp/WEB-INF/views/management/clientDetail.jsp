@@ -57,6 +57,13 @@ strong{
 						</div>
 						
 						<div class="row">
+							<div class="col-lg-3">
+								<p><strong>쿠폰번호</strong>${clientDetail.couponNo}</p>
+							</div>
+							
+						</div>
+						
+						<div class="row">
 							<div class="col-lg-12">
 								<p><strong>관리자메모</strong><br>${clientDetail.memo}</p>
 							</div>
@@ -97,6 +104,7 @@ strong{
 									<th><i class="icon_mobile"></i>소셜</th>
 									<th><i class="icon_mobile"></i>쿠폰</th>
 									<th><i class="icon_pin_alt"></i>합계</th>
+									<th><i class="icon_pin_alt"></i>쿠폰No</th>
 									<th><i class="icon_pin_alt"></i>비고</th>
 								</tr>
 
@@ -112,6 +120,7 @@ strong{
 										<td>${clientSale.social}</td>
 										<td>${clientSale.coupon}</td>
 										<td>${clientSale.total}</td>
+										<td>${clientSale.couponNo}</td>
 										<td><a href="#" data-toggle="tooltip" title="${clientSale.memo}">비고</a></td>
 									</tr>
 								</c:forEach>

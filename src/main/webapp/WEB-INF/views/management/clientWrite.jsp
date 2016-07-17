@@ -25,7 +25,7 @@
 						<div class="panel-body">
 							<div class="padd">
 								<div class="form quick-post">
-									<form class="form-horizontal" action="/management/clientwriteAction" method="post">
+									<form class="form-horizontal" action="/management/clientwriteAction" method="post" onsubmit="return fn_onsubmit()">
 
 										<div class="form-group">
 											<label class="control-label col-lg-2" for="title">지점명</label>
@@ -61,8 +61,12 @@
 
 										<div class="form-group">
 											<label class="control-label col-lg-2" for="tags">차량번호</label>
-											<div class="col-lg-10">
+											<div class="col-lg-7">
+												<input type="hidden" id="carNo" name="carNo" maxlength="10">
 												<input type="text" id="carnumber" name="carnumber" class="form-control" maxlength="10" required="required">
+											</div>
+											<div class="col-lg-3">
+												<button type="button" class="btn" onclick="checkcarNo()">중복검사</button>
 											</div>
 										</div>
 
@@ -74,7 +78,7 @@
 										</div>
 										
 										<div class="form-group">
-											<label class="control-label col-lg-2" for="tags">생일</label>
+											<label class="control-label col-lg-2" for="tags">고객관리</label>
 											<div class="col-lg-10">
 												<input type="text" id="birthday" name="birthday" class="form-control"  maxlength="20" readonly="readonly">
 											</div>
@@ -234,4 +238,38 @@
 		$('#myModal').modal('hide');
 	}
 	
+	function checkcarNo(){
+		
+		if($('#carnumber').val()==null||$('#carnumber').val()==''||$('#carnumber').val().length<5){
+			alert('차량번호를 입력해주세요.');
+			return false;
+		}
+		var cn = $.trim( $('#carnumber').val() );
+		$.ajax({
+			url:'/management/carNo',
+			data:{ 'carnumber' : cn.replace(/ /g, '') },
+			type: "post",
+			dataType :'json',
+			success:function(data){
+				if(data=='0'){
+					$('#carNo').val( $('#carnumber').val() );
+					alert('등록가능한 차량번호입니다.');
+				}else{
+					$('#carNo').val( '' );
+					alert('존재하는 차량번호입니다.');
+				}
+			},error:function(){
+				
+			}	
+		});
+	}
+	
+	function fn_onsubmit(){
+		var carNo = $('#carNo').val();
+		if( carNo==null || carNo=='' ){
+			alert('차량번호 중복검사를 해주세요.');
+			return false;
+		}
+		return true;
+	}
 </script>

@@ -114,11 +114,18 @@
 												<input type="text" class="form-control" id="coupon" name="coupon" pattern='^[0-9]*$' maxlength="20">
 											</div>
 										</div>
+										
+										<div class="form-group">
+											<label class="control-label col-lg-2" for="tags">쿠폰번호</label>
+											<div class="col-lg-10">
+												<input type="text" class="form-control" id="couponNo" name="couponNo" maxlength="30">
+											</div>
+										</div>
 
 										<div class="form-group">
 											<label class="control-label col-lg-2" for="tags">비고</label>
 											<div class="col-lg-10">
-												<input type="text" class="form-control" id="memo" name="memo">
+												<input type="text" class="form-control" id="memo" name="memo" maxlength="100">
 											</div>
 										</div>
 
