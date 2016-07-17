@@ -85,4 +85,6 @@ public interface ManagementDao {
 
 	void confirmRequest(Map<String, Object> param);
 
+	int carNo(Map<String, Object> param);
+
 }

@@ -35,7 +35,6 @@
 							</div>
 							<div id="search_div">
 								<select name="qnalist" class="search_qna" style="width: 100px;">
-									<option value="">선택하세요</option>
 									<option value="name" <c:if test='${paramInfo.qnalist eq "name"}'> selected="selected"</c:if>>고객명</option>
 									<option value="customernum" <c:if test='${paramInfo.qnalist eq "customernum"}'> selected="selected"</c:if>>고객no</option>
 								</select>

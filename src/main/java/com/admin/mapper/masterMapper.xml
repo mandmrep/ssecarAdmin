@@ -208,6 +208,7 @@
     		automobile 
     	where 
     		manufacturer = #{num}
+    	order by name asc
     </select>
     
     <delete id="manuDelete" parameterType="string">
@@ -701,6 +702,7 @@
 			if(s.online!='',s.online,'0') online,
 			if(s.coupon!='',s.coupon,'0') coupon,
 			s.memo,
+			s.couponNo,
 			(select case 
 						when date_format(c.regdate,'%Y-%m') = date_format(now(),'%Y-%m') then 'Y'
 						when date_format(c.regdate,'%Y-%m') != date_format(now(),'%Y-%m') then 'N'

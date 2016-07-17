@@ -39,7 +39,6 @@
 					<form action="/management/client" method="post">
 						<div id="search_div" >
 							<select id="division" name="division" class="search_qna" required="required">
-								<option value="">검색구분</option>
 								<option value="name" <c:if test="${param.division eq 'name'}">selected="selected"</c:if>>고객명</option>
 								<option value="num" <c:if test="${param.division eq 'num'}">selected="selected"</c:if>>고객No</option>
 								<option value="carnumber" <c:if test="${param.division eq 'carnumber'}">selected="selected"</c:if>>차량번호</option>

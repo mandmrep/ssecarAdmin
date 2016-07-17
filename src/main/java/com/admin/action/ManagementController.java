@@ -882,4 +882,27 @@ public class ManagementController {
 		
 		return "aa";
 	}
+	
+	@RequestMapping(value="/carNo", method = RequestMethod.POST)
+	@ResponseBody
+	public String carNo(Model model,HttpServletRequest request){
+		logger.info("carNo");
+		
+		@SuppressWarnings("unchecked")
+		Enumeration<String> em =  request.getParameterNames();
+		Map <String,Object> param = new HashMap<String,Object>();
+		
+		while(em.hasMoreElements()){
+			String name=em.nextElement();
+			param.put(name, request.getParameter(name));
+		}
+		String cn = (String)param.get("carnumber");
+		param.put("carnumber", cn.replaceAll("\\p{Z}","") );
+		int num = managementService.carNo(param);
+		String result = "0"; 
+		if(num >0){
+			result = "1";
+		}
+		return result;
+	}
 }
