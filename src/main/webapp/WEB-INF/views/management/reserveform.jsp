@@ -37,7 +37,7 @@
 										<div class="form-group">
 											<label class="control-label col-lg-2">예약시간</label>
 											<div class="col-lg-10">
-												<select id="start" name="start" class="form-control" required="required" onchange="duplicate(this.value)">
+												<select id="start" name="start" class="form-control" required="required" ><!-- onchange="duplicate(this.value)" -->
 													<option value="">- 선택하세요 -</option>
 													<option value="09:00-10:00">09:00</option>
 													<option value="10:00-11:00">10:00</option>
