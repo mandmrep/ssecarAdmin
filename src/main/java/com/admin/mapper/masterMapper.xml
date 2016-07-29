@@ -690,6 +690,7 @@
 	</update>
 	<select id="down" parameterType="map" resultType="hashmap">
 		select
+			@ROWNUM := @ROWNUM + 1 AS ROWNUM,
 			s.num,
 			s.customernum,
 			s.name,
@@ -713,6 +714,7 @@
 				where c.num = s.customernum) regYn,
 			(select date_format(c.regdate,'%Y-%m-%d') from customer c where c.num = s.customernum) regDate
 		from
+			(SELECT @ROWNUM := 0) r,
 			sales s
 		inner join products p on s.service = p.num
 		where
@@ -728,7 +730,7 @@
 				and s.division = #{division}
 			</if>
 			and s.regdate between '${start} 00:00' and '${end} 24:00'
-    	ORDER BY s.num DESC
+    	ORDER BY ROWNUM DESC
 	</select>
 	
 	<update id="clientUpdateAction" parameterType="map">

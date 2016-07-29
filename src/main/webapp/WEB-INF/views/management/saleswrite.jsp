@@ -125,7 +125,7 @@
 										<div class="form-group">
 											<label class="control-label col-lg-2" for="tags">비고</label>
 											<div class="col-lg-10">
-												<input type="text" class="form-control" id="memo" name="memo" maxlength="100">
+												<input type="text" class="form-control" id="memo" name="memo" maxlength="1000">
 											</div>
 										</div>
 

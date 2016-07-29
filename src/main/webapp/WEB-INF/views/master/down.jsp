@@ -5,8 +5,9 @@
 	<tr>
 		<td>총No</td>
 		<td>고객No</td>
+		<td>방문No</td>
 		<td><i class="icon_calendar"></i> 고객명</td>
-		<td><i class="icon_calendar"></i> 날짜</td>
+		<td><i class="icon_calendar"></i> 등록날짜</td>
 		<td><i class="icon_calendar"></i> 구분</td>
 		<td><i class="icon_calendar"></i> 제품명</td>
 		<td><i class="icon_mail_alt"></i> 카드</td>
@@ -22,8 +23,9 @@
 	</tr>
 	<c:forEach var="i" items="${list}">
 		<tr>
-			<td>${i.num}</td>
+			<td>${i.ROWNUM}</td>
 			<td>${i.customernum}</td>
+			<td>${i.num}</td>
 			<td>${i.name}</td>
 			<td>${i.date}</td>
 			<td>${i.division}</td>
