@@ -196,7 +196,7 @@
 	
 	//datepicker
 	$('#birthday').daterangepicker({
-		startDate : '1990-01-01',
+		//startDate : '1990-01-01',
 		singleDatePicker: true,
 	    showDropdowns: true,
 		locale : {
