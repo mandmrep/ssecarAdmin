@@ -19,7 +19,7 @@ public interface ManagementService {
 
 	List<Map<String, Object>> getCalendarList(Map<String, Object> param);
 
-	List<Map<String, Object>> getProductsList();
+	List<Map<String, Object>> getProductsList(Map <String,Object> param);
 
 	List<Map<String, Object>> getManufacturerList();
 

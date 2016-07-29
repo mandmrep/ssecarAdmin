@@ -40,6 +40,18 @@
 												<input type="text" class="form-control" id="name" name="name" maxlength="50" required="required">
 											</div>
 										</div>
+										
+										<div class="form-group">
+											<label class="control-label col-lg-2">사용 지점</label>
+											<div class="col-lg-10">
+												<select class="form-control" id="partner" name="partner" required="required">
+													<option value="">선택하세요</option>
+													<option value="s">쌔카S</option>
+													<option value="m">M8</option>
+													<option value="r">쌔카직영</option>
+												</select>
+											</div>
+										</div>
 
 										<div class="form-group">
 											<label class="control-label col-lg-2" for="tags">구분</label>

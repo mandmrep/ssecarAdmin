@@ -14,13 +14,22 @@ public class UserVo implements UserDetails{
     private String name;
     private int fno;
     private String fname="";
+    private String partner;
 	private Collection<? extends GrantedAuthority> authorities;
     private boolean accountNonExpired = true;
     private boolean accountNonLocked = true;
     private boolean credentialsNonExpired = true;
     private boolean enabled = true;
     
-    public int getFno() {
+    public String getPartner() {
+		return partner;
+	}
+
+	public void setPartner(String partner) {
+		this.partner = partner;
+	}
+
+	public int getFno() {
 		return fno;
 	}
 
@@ -87,12 +96,6 @@ public class UserVo implements UserDetails{
 	}
 
 	@Override
-	public String getPassword() {
-		// TODO Auto-generated method stub
-		return this.password;
-	}
-
-	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
 		return this.username;
@@ -108,12 +111,17 @@ public class UserVo implements UserDetails{
 
 	@Override
 	public String toString() {
-		return "UserVo [username=" + username + ", password=" + password
-				+ ", name=" + name + ", authorities=" + authorities
-				+ ", accountNonExpired=" + accountNonExpired
-				+ ", accountNonLocked=" + accountNonLocked
-				+ ", credentialsNonExpired=" + credentialsNonExpired
-				+ ", enabled=" + enabled + "]";
+		return "UserVo [username=" + username + ", name=" + name + ", fno=" + fno + ", fname=" + fname
+				+ ", authorities=" + authorities + ", accountNonExpired=" + accountNonExpired + ", accountNonLocked="
+				+ accountNonLocked + ", credentialsNonExpired=" + credentialsNonExpired + ", enabled=" + enabled + "]";
 	}
+
+	@Override
+	public String getPassword() {
+		
+		return this.password;
+	}
+
+	
 	
 }

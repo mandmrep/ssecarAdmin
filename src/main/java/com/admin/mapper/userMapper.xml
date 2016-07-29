@@ -9,7 +9,8 @@
     		u.enabled,
     		u.fno,
     		u.regDate,
-    		f.name fname
+    		f.name fname,
+    		f.division partner
     	FROM 
     		users u
     	LEFT OUTER JOIN franchise f ON u.fno = f.fno

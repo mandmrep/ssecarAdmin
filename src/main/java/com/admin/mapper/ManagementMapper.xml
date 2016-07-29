@@ -154,13 +154,16 @@
 		and r.date between FROM_UNIXTIME(#{start},'%Y-%m-%d') and FROM_UNIXTIME(#{end},'%Y-%m-%d')
     </select>
     
-    <select id="getProductsList" resultType="map">
+    <select id="getProductsList" parameterType="map" resultType="hashmap">
     	SELECT 
     		* 
     	FROM 
     		products 
     	WHERE delyn='y'
     	and division = '서비스'
+    	<if test="partner !=null">
+    		AND partner = #{partner}
+    	</if>
     </select>
     
     <select id="getManufacturerList" resultType="map">

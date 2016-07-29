@@ -58,9 +58,9 @@ public class ManagementServiceImpl implements ManagementService{
 	}
 
 	@Override
-	public List<Map<String, Object>> getProductsList() {
+	public List<Map<String, Object>> getProductsList(Map <String,Object> param) {
 		
-		return managementDao.getProductsList();
+		return managementDao.getProductsList(param);
 	}
 
 	@Override

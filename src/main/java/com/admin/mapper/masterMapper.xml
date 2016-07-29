@@ -6,6 +6,7 @@
     		num,
     		code,
     		name,
+    		partner,
     		division,
     		price,
     		memo,
@@ -44,6 +45,7 @@
     <insert id="productswriteAction" parameterType="map">
     	insert into products
     		(code,
+    		partner,
     		name,
     		division,
     		color,
@@ -53,6 +55,7 @@
     		)
     	values
     		(#{code},
+    		#{partner},
     		#{name},
     		#{division},
     		#{color},

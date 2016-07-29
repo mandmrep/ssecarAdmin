@@ -119,7 +119,13 @@ public class ManagementController {
 		String dt = request.getParameter("dt");
 		String time = request.getParameter("time");
 		String tel = request.getParameter("tel");
-		List<Map<String,Object>> products = managementService.getProductsList();
+		
+		//로그인정보
+		UserVo user =  (UserVo)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		Map <String,Object> param = new HashMap<String,Object>();
+		param.put("partner", user.getPartner());
+		List<Map<String,Object>> products = managementService.getProductsList(param);
 		List<Map<String,Object>> manufacturer = managementService.getManufacturerList();
 		
 		if(num!=null){model.addAttribute("num", num);}
@@ -274,7 +280,12 @@ public class ManagementController {
 		logger.info("reservationupdateform");
 		String idx = request.getParameter("idx");
 		
-		List<Map<String,Object>> products = managementService.getProductsList();
+		//로그인정보
+		UserVo user =  (UserVo)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		Map <String,Object> param = new HashMap<String,Object>();
+		param.put("partner", user.getPartner());
+		List<Map<String,Object>> products = managementService.getProductsList(param);
 		List<Map<String,Object>> manufacturer = managementService.getManufacturerList();
 		Map<String,Object> list = managementService.reservationupdateform(idx);
 		
@@ -830,10 +841,16 @@ public class ManagementController {
 	@RequestMapping(value="/reserveform2")
 	public String reserveform2(Model model,HttpServletRequest request){
 		logger.info("reserveform2");
+		//로그인정보
+		UserVo user =  (UserVo)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		Map <String,Object> param = new HashMap<String,Object>();
+		param.put("partner", user.getPartner());
+		
 		String cno = request.getParameter("cno");
 		
 		Map<String,Object> result = managementService.getCustomerInfo(cno);
-		List<Map<String,Object>> products = managementService.getProductsList();
+		List<Map<String,Object>> products = managementService.getProductsList(param);
 		List<Map<String,Object>> manufacturer = managementService.getManufacturerList();
 
 		String date=(String)result.get("date");

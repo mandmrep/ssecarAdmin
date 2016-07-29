@@ -53,6 +53,7 @@
 									<th>#</th>
 									<th><i class="icon_calendar"></i> 상품번호</th>
 									<th><i class="icon_calendar"></i> 상품명</th>
+									<th><i class="icon_calendar"></i> 지점</th>
 									<th><i class="icon_calendar"></i> 구분</th>
 									<th><i class="icon_mail_alt"></i> 가격</th>
 									<th><i class="icon_mail_alt"></i> 비고</th>
@@ -64,6 +65,9 @@
 										<td>${product.num}</td>
 										<td>${product.code}</td>
 										<td>${product.name}</td>
+										<c:if test="${product.partner eq 's'}"><td>쌔카S</td></c:if>
+										<c:if test="${product.partner eq 'm'}"><td>M8</td></c:if>
+										<c:if test="${product.partner eq 'r'}"><td>쌔카직영</td></c:if>
 										<td>${product.division}</td>
 										<td>${product.price}</td>
 										<td><a href="#" data-toggle="tooltip" title="${product.memo}">비고</a></td>

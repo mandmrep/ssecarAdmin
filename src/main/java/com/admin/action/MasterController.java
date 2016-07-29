@@ -10,7 +10,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.tiles.request.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -712,8 +711,9 @@ public class MasterController {
 	@RequestMapping(value="/reserveform",method={RequestMethod.GET,RequestMethod.POST})
 	public String reserveform(Model model,HttpServletRequest request){
 		logger.info("reserveform");
-		
-		List<Map<String,Object>> products = managementService.getProductsList();
+			
+		Map <String,Object> param = new HashMap<String,Object>();
+		List<Map<String,Object>> products = managementService.getProductsList(param);
 		List<Map<String,Object>> manufacturer = managementService.getManufacturerList();
 		
 		model.addAttribute("products", products);
@@ -735,9 +735,6 @@ public class MasterController {
 	public String updateform(Model model,HttpServletRequest request){
 		logger.info("updateform");
 		
-		List<Map<String,Object>> products = managementService.getProductsList();
-		List<Map<String,Object>> manufacturer = managementService.getManufacturerList();
-		
 		Map<String,Object> param = new HashMap<String, Object>();
 		Enumeration<String> em =  request.getParameterNames();
 		
@@ -745,6 +742,9 @@ public class MasterController {
 			String name=em.nextElement();
 			param.put(name, request.getParameter(name));
 		}
+		
+		List<Map<String,Object>> products = managementService.getProductsList(param);
+		List<Map<String,Object>> manufacturer = managementService.getManufacturerList();
 		
 		Map<String,Object> reserveInfo = masterService.getReserveInfobynum(param);
 		model.addAttribute("reserveInfo", reserveInfo);
