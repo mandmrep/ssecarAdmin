@@ -6,7 +6,8 @@
     		num,
     		code,
     		name,
-    		partner,
+    		prod_type,
+    		prod_num,
     		division,
     		price,
     		memo,
@@ -45,7 +46,8 @@
     <insert id="productswriteAction" parameterType="map">
     	insert into products
     		(code,
-    		partner,
+    		prod_type,
+    		prod_num,
     		name,
     		division,
     		color,
@@ -55,7 +57,8 @@
     		)
     	values
     		(#{code},
-    		#{partner},
+    		#{prod_type},
+    		#{prod_num},
     		#{name},
     		#{division},
     		#{color},
@@ -694,8 +697,8 @@
 	<select id="down" parameterType="map" resultType="hashmap">
 		select
 			@ROWNUM := @ROWNUM + 1 AS ROWNUM,
-			s.num,
 			s.customernum,
+			(select count(*) from sales where customernum = s.customernum group by customernum) invite,
 			s.name,
 			s.date,
 			s.division,

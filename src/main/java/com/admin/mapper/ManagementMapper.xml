@@ -161,8 +161,9 @@
     		products 
     	WHERE delyn='y'
     	and division = '서비스'
-    	<if test="partner !=null">
-    		AND partner = #{partner}
+    	<if test="prod_type !=null and prod_num !=null">
+    		AND prod_type = #{prod_type}
+    		AND prod_num = #{prod_num}
     	</if>
     </select>
     

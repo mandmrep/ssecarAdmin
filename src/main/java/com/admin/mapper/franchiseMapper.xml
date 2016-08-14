@@ -49,6 +49,7 @@
     	INSERT INTO 
     		franchise 
     			(division,
+    			prod_num,
     			name,
     			name_en,
     			address,
@@ -67,6 +68,7 @@
     			regDate) 
     		VALUES
     			(#{division},
+    			#{prod_num},
     			#{name},
     			#{name_en},
     			#{address},
@@ -102,6 +104,7 @@
     	SELECT 
     		fno,
     		division,
+    		prod_num,
     		name,
     		name_en,
     		address,
@@ -127,6 +130,7 @@
     		franchise
     	set
     		division=#{division},
+    		prod_num=#{prod_num},
     		name=#{name},
     		name_en=#{name_en},
     		address=#{address},

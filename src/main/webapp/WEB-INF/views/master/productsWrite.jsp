@@ -44,11 +44,30 @@
 										<div class="form-group">
 											<label class="control-label col-lg-2">사용 지점</label>
 											<div class="col-lg-10">
-												<select class="form-control" id="partner" name="partner" required="required">
+												<select class="form-control" id="prod_type" name="prod_type" required="required">
 													<option value="">선택하세요</option>
 													<option value="s">쌔카S</option>
 													<option value="m">M8</option>
 													<option value="r">쌔카직영</option>
+												</select>
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<label class="control-label col-lg-2">순서</label>
+											<div class="col-lg-10">
+												<select class="form-control" id="prod_num" name="prod_num" required="required">
+													<option value="">선택하세요</option>
+													<option value="1">1</option>
+													<option value="2">2</option>
+													<option value="3">3</option>
+													<option value="4">4</option>
+													<option value="5">5</option>
+													<option value="6">6</option>
+													<option value="7">7</option>
+													<option value="8">8</option>
+													<option value="9">9</option>
+													<option value="10">10</option>
 												</select>
 											</div>
 										</div>

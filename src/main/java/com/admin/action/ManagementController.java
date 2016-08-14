@@ -124,7 +124,8 @@ public class ManagementController {
 		UserVo user =  (UserVo)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
 		Map <String,Object> param = new HashMap<String,Object>();
-		param.put("partner", user.getPartner());
+		param.put("prod_type", user.getProd_type());
+		param.put("prod_num", user.getProd_num());
 		List<Map<String,Object>> products = managementService.getProductsList(param);
 		List<Map<String,Object>> manufacturer = managementService.getManufacturerList();
 		
@@ -284,7 +285,8 @@ public class ManagementController {
 		UserVo user =  (UserVo)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
 		Map <String,Object> param = new HashMap<String,Object>();
-		param.put("partner", user.getPartner());
+		param.put("prod_type", user.getProd_type());
+		param.put("prod_num", user.getProd_num());
 		List<Map<String,Object>> products = managementService.getProductsList(param);
 		List<Map<String,Object>> manufacturer = managementService.getManufacturerList();
 		Map<String,Object> list = managementService.reservationupdateform(idx);
@@ -845,7 +847,8 @@ public class ManagementController {
 		UserVo user =  (UserVo)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
 		Map <String,Object> param = new HashMap<String,Object>();
-		param.put("partner", user.getPartner());
+		param.put("prod_type", user.getProd_type());
+		param.put("prod_num", user.getProd_num());
 		
 		String cno = request.getParameter("cno");
 		

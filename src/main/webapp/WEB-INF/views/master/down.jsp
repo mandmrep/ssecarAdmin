@@ -25,7 +25,7 @@
 		<tr>
 			<td>${i.ROWNUM}</td>
 			<td>${i.customernum}</td>
-			<td>${i.num}</td>
+			<td>${i.invite}</td>
 			<td>${i.name}</td>
 			<td>${i.date}</td>
 			<td>${i.division}</td>

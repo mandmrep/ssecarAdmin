@@ -60,6 +60,25 @@
 							</div>
 							
 							<div class="form-group">
+								<label class="col-sm-2 control-label">상품번호</label>
+								<div class="col-sm-10">
+									<select class="form-control" id="prod_num" name="prod_num" required="required">
+										<option value="">선택하세요</option>
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+										<option value="7">7</option>
+										<option value="8">8</option>
+										<option value="9">9</option>
+										<option value="10">10</option>
+									</select>
+								</div>
+							</div>
+							
+							<div class="form-group">
 								<label class="col-sm-2 control-label">지점명</label>
 								<div class="col-sm-10">
 									<input type="text" name="name" class="form-control" value="${franchise.name}" required="required">
@@ -216,13 +235,14 @@
 		var closetime = '${franchise.closetime}';
 		var capacity = '${franchise.capacity}';
 		var parking = '${franchise.parking}';
+		var prod_num = '${franchise.prod_num}';
 		$('#area').val(area);
 		$('#opentime').val(opentime);
 		$('#closetime').val(closetime);
 		$('#capacity').val(capacity);
 		$('#parking').val(parking);
 		$('#division').val(division);
-		
+		$('#prod_num').val(prod_num);
 		var arr = '${service}';			
 		var str = arr.replace(/[^0-9]/g,'');
 

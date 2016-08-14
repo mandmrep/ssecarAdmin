@@ -4,6 +4,7 @@ public class FranchiseVo {
 	private int fno;
 	private String area;
 	private String division;
+	private String prod_num;
 	private String name;
 	private String name_en;
 	private String address;
@@ -22,6 +23,12 @@ public class FranchiseVo {
 	
 	
 	
+	public String getProd_num() {
+		return prod_num;
+	}
+	public void setProd_num(String prod_num) {
+		this.prod_num = prod_num;
+	}
 	public String getDivision() {
 		return division;
 	}

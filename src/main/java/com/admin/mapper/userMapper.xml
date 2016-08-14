@@ -10,7 +10,8 @@
     		u.fno,
     		u.regDate,
     		f.name fname,
-    		f.division partner
+    		f.division prod_type,
+    		f.prod_num prod_num
     	FROM 
     		users u
     	LEFT OUTER JOIN franchise f ON u.fno = f.fno

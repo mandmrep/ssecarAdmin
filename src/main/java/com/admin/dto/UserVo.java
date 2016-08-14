@@ -14,19 +14,30 @@ public class UserVo implements UserDetails{
     private String name;
     private int fno;
     private String fname="";
-    private String partner;
+    private String prod_type;
+    private String prod_num;
 	private Collection<? extends GrantedAuthority> authorities;
     private boolean accountNonExpired = true;
     private boolean accountNonLocked = true;
     private boolean credentialsNonExpired = true;
     private boolean enabled = true;
     
-    public String getPartner() {
-		return partner;
+   
+    
+	public String getProd_type() {
+		return prod_type;
 	}
 
-	public void setPartner(String partner) {
-		this.partner = partner;
+	public void setProd_type(String prod_type) {
+		this.prod_type = prod_type;
+	}
+
+	public String getProd_num() {
+		return prod_num;
+	}
+
+	public void setProd_num(String prod_num) {
+		this.prod_num = prod_num;
 	}
 
 	public int getFno() {
