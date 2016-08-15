@@ -45,8 +45,8 @@
 										<td>
 											<div class="btn-group">
 												<a class="btn btn-primary" href="/management/reserveform2?cno=${customer.num}"><i class="icon_plus_alt2"></i></a>
-												<a class="btn btn-danger" href="javascript:del(${customer.num});"><i class="icon_close_alt2"></i></a>
-												<a class="btn btn-success" href="javascript:confirm(${customer.num});"><i class="icon_plus_alt2"></i></a>
+												<a class="btn btn-danger" href="javascript:del2('${customer.num}');"><i class="icon_close_alt2" ></i></a>
+												<a class="btn btn-success" href="javascript:confirm2(${customer.num});"><i class="icon_plus_alt2"></i></a>
 											</div>
 										</td>
 									</tr>
@@ -104,7 +104,7 @@
 $("#customerTable > tr > td:eq(7)").tooltip();
 
 
-function del(idx){
+function del2(idx){
 	var letitgo = confirm('삭제하시겠습니까?')
 	if(letitgo){
 		var $form = $('<form></form>');
@@ -139,7 +139,7 @@ $('[id^=title]').on('click',function(e){
 	e.preventDefault();
 });
 
-function confirm(idx){
+function confirm2(idx){
 	$.ajax({
 		url:'/management/confirmRequest',
 		data:{ 
