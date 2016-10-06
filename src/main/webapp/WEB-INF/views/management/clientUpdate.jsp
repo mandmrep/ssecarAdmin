@@ -75,7 +75,7 @@
 										</div>
 										
 										<div class="form-group">
-											<label class="control-label col-lg-2">생일</label>
+											<label class="control-label col-lg-2">등록일</label>
 											<div class="col-lg-10">
 												<input type="text" id="birthday" name="birthday" value ="${client.birthday}" class="form-control" maxlength="20" readonly="readonly">
 											</div>

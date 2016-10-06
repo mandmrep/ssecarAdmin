@@ -78,7 +78,7 @@
 										</div>
 										
 										<div class="form-group">
-											<label class="control-label col-lg-2" for="tags">고객관리</label>
+											<label class="control-label col-lg-2" for="tags">등록일</label>
 											<div class="col-lg-10">
 												<input type="text" id="birthday" name="birthday" class="form-control"  maxlength="20" readonly="readonly">
 											</div>
@@ -195,7 +195,7 @@
 	
 	//datepicker
 	$('#birthday').daterangepicker({
-		startDate : '1990-01-01',
+		startDate : moment(),
 		singleDatePicker: true,
 	    showDropdowns: true,
 		locale : {

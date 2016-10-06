@@ -43,7 +43,7 @@ strong{
 						
 						<div class="row">
 							<div class="col-lg-3">
-								<p><strong>생년월일</strong>${clientDetail.birthday}</p>
+								<p><strong>등록일</strong>${clientDetail.birthday}</p>
 							</div>
 							<div class="col-lg-3">
 								<p><strong>연락처</strong>${clientDetail.tel}</p>
