@@ -57,7 +57,7 @@
 								<th>고객No</th>
 								<th>방문횟수</th>
 								<th><i class="icon_calendar"></i>고객명</th>
-								<th><i class="icon_calendar"></i>생일</th>
+								<th><i class="icon_calendar"></i>등록일</th>
 								<th><i class="icon_profile"></i>지점명</th>
 								<th><i class="icon_mobile"></i>연락처</th>
 								<th><i class="icon_pin_alt"></i>차종</th>
